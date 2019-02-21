@@ -308,7 +308,7 @@ class giris_pen():
         pos_gun_sonu_toplam = 0
         try:
             if bas_gun == "": #tarih olmadığı durumda
-                baslangic_tarihi = datetime.datetime.strptime("01/01/19", "%d/%m/%y")
+                baslangic_tarihi = datetime.datetime.strptime("21/02/19", "%d/%m/%y")
                 bitis_tarihi = datetime.datetime.today()
                 #bitis_tarihi =  datetime.datetime.strptime(str(bitis_tarihim), "%y/%m/%d")
                 gun_araligi = str(bitis_tarihi-baslangic_tarihi)
