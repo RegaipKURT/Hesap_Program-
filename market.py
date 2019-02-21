@@ -27,23 +27,23 @@ class giris_pen():
         altmenu.add_command(label="Exit", command=quit)
 
         menu2 = Menu(menu)
-        menu.add_cascade(label="Edit", menu=menu2)
-        menu2.add_command(label="Ekle")
+        menu.add_cascade(label="Ekle", menu=menu2)
+        menu2.add_command(label="Firma Ekle")
 
         self.status = Label(master, text="Yükleme Başarılı... Hoşgeldiniz... Tarih:{}".format(tarih), bd=1, relief=SUNKEN, anchor="w")
         self.status.pack(side=BOTTOM, fill=X)
 
         self.islem_buton = Button(master, text="İşlem Girişi", bd=3)
         self.islem_buton.bind("<Button-1>", self.hesap_penceresi)
-        self.islem_buton.pack()
+        self.islem_buton.place(x=169, y = 20)
 
         self.ekle_buton = Button(master, text="Firma Ekle", bd=3)
         self.ekle_buton.bind("<Button-1>",self.firma_ekle_pen)
-        self.ekle_buton.pack()
+        self.ekle_buton.place(x=171, y = 70)
 
         self.hesap_buton = Button(master, text="Hesap Yap", bd=3)
         self.hesap_buton.bind("<Button-1>", self.hesap_fonk_pen)
-        self.hesap_buton.pack()
+        self.hesap_buton.place(x=170, y = 120)
 
         self.cikis_buton = Button(master, text="Çıkış Yap", bd=3)
         self.cikis_buton.bind("<Button-1>", self.cikis)
