@@ -90,6 +90,19 @@ class giris_pen():
                         file.write(firma)
                         file.close()
                 
+                elif tip == "Ödeme Al":
+                    file = open("hesap_dosyalari/odeme_al.csv", "a")
+                    if firma == "ETT":
+                        sonuc = str(tarih+","+str(miktar)+",")
+                        file.write(sonuc)
+                        file.write(firma+"\n")
+                        file.close()
+                    else:
+                        sonuc = str(tarih+","+str(miktar)+",")
+                        file.write(sonuc)
+                        file.write(firma)
+                        file.close()
+
                 elif tip == "Kasadan Yapılan Ödeme":
                     file = open("hesap_dosyalari/kasadan_odeme.csv", "a")
                     if firma == "ETT":
@@ -284,6 +297,7 @@ class giris_pen():
         gider = pd.read_csv("hesap_dosyalari/gider.csv",encoding = "ISO-8859-1")
         kasadan_alinan = pd.read_csv("hesap_dosyalari/kasadan_alinan.csv",encoding = "ISO-8859-1")
         pos_gun_sonu = pd.read_csv("hesap_dosyalari/pos_gun_sonu.csv",encoding = "ISO-8859-1")
+        alinan_odeme = pd.read_csv("hesap_dosyalari/odeme_al.csv",encoding = "ISO-8859-1")
         
         #sonuçları içine yazdırmak ve sonradan pencereye eklemek için bir dosya
         sonuc_dosyası = open("hesap_dosyalari/gecici_sonuc_dosyasi.csv","w") #ekrana yazdırırken read modunda alıp satırlarını oku!
@@ -306,9 +320,10 @@ class giris_pen():
         gider_toplam = 0
         kasadan_alinan_toplam = 0
         pos_gun_sonu_toplam = 0
+        alinan_odeme_toplam=0
         try:
             if bas_gun == "": #tarih olmadığı durumda
-                baslangic_tarihi = datetime.datetime.strptime("21/02/19", "%d/%m/%y")
+                baslangic_tarihi = datetime.datetime.strptime("20/02/19", "%d/%m/%y")
                 bitis_tarihi = datetime.datetime.today()
                 #bitis_tarihi =  datetime.datetime.strptime(str(bitis_tarihim), "%y/%m/%d")
                 gun_araligi = str(bitis_tarihi-baslangic_tarihi)
@@ -317,8 +332,6 @@ class giris_pen():
                 gun_araligi = int(gun_araligi)
                 ay_araligi = gun_araligi / 30
 
-                
-                
                 if firma == "TÜMÜ": #tüm firmlar için
                     pencere = Tk()
                     pencere.title("Göster")
@@ -338,12 +351,15 @@ class giris_pen():
                         kasadan_alinan_toplam = kasadan_alinan_toplam + i
                     for i in pos_gun_sonu.iloc[:,1:2].values:
                         pos_gun_sonu_toplam = pos_gun_sonu_toplam + i
+                    for i in alinan_odeme.iloc[:,1:2].values:
+                        alinan_odeme_toplam = alinan_odeme_toplam + i
                     
                     yapilacak_odeme1 = open("hesap_dosyalari/yapilacak_odeme.csv", "r")
                     kasadan_odeme1 = open("hesap_dosyalari/kasadan_odeme.csv", "r")
                     kasadisi_odeme1 = open("hesap_dosyalari/kasadisi_odeme.csv", "r")
                     gider1 = open("hesap_dosyalari/gider.csv", "r")
                     kasadan_alinan1 = open("hesap_dosyalari/kasadan_alinan.csv", "r")
+                    alinan_odeme1 = open("hesap_dosyalari/odeme_al.csv","r")
                     #pos_gun_sonu1 = open("hesap_dosyalari/pos_gun_sonu.csv", "r")
 
                     gecici_yapilacak_odeme = open("hesap_dosyalari/gecici_yapilacak_odeme.csv", "w")
@@ -352,6 +368,7 @@ class giris_pen():
                     gecici_gider = open("hesap_dosyalari/gecici_gider.csv", "w")
                     gecici_kasadan_alinan = open("hesap_dosyalari/gecici_kasadan_alinan.csv", "w")
                     gecici_pos_gun_sonu = open("hesap_dosyalari/gecici_pos_gun_sonu.csv", "w")
+                    gecici_alinan_odeme = open("hesap_dosyalari/gecici_odeme_al.csv","w")
 
                     for i in yapilacak_odeme1:
                         hepsi = "Yapılacak Ödeme, " + str(i)
@@ -373,6 +390,10 @@ class giris_pen():
                         hepsi = "Kasadan Alınan, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_kasadan_alinan.write(i)
+                    for i in alinan_odeme1:
+                        hepsi = "Alınan Ödeme, " + str(i)
+                        sonuc_dosyası.write(hepsi)
+                        gecici_alinan_odeme.write(i)
                     sonuc_dosyası.close()
                     gecici_kasadan_odeme.close()
                     gecici_kasadan_alinan.close()
@@ -380,6 +401,7 @@ class giris_pen():
                     gecici_kasadisi_odeme.close()
                     gecici_pos_gun_sonu.close()
                     gecici_yapilacak_odeme.close()
+                    gecici_alinan_odeme.close()
 
                     label_yapod = Label(pencere, text="\nYapılacak Ödeme Toplam:")
                     label_yapod_sonuc = Label(pencere, text=float(yapilacak_odeme_toplam))
@@ -436,9 +458,14 @@ class giris_pen():
                     kasa_n_sonucu.place(x=400,y=230)
 
                     pos_k = Label(pencere,text="POS Kaybı:")
-                    pos_k_sonucu = Label(pencere,text=float(pos_kaybı))
+                    pos_k_sonucu = Label(pencere,text=format(float(pos_kaybı),".3f"))
                     pos_k.place(x=20,y=270)
                     pos_k_sonucu.place(x=140,y=270)
+
+                    al_od = Label(pencere,text="Alınan Ödeme:")
+                    al_od_sonucu = Label(pencere,text=format(float(alinan_odeme_toplam),".2f"))
+                    al_od.place(x=300,y=270)
+                    al_od_sonucu.place(x=400,y=270)
 
                     ayirma_cizgisi2 = Label(pencere,text="-------------------------------------------------------------------------------------------------------------")
                     ayirma_cizgisi2.place(y=293)
@@ -623,6 +650,7 @@ class giris_pen():
                     kasadisi_odeme1 = open("hesap_dosyalari/kasadisi_odeme.csv", "r")
                     gider1 = open("hesap_dosyalari/gider.csv", "r")
                     kasadan_alinan1 = open("hesap_dosyalari/kasadan_alinan.csv", "r")
+                    alinan_odeme1 = open("hesap_dosyalari/odeme_al.csv","r")
                     #pos_gun_sonu1 = open("hesap_dosyalari/pos_gun_sonu.csv", "r")
 
                     gecici_yapilacak_odeme = open("hesap_dosyalari/gecici_yapilacak_odeme.csv", "w")
@@ -631,6 +659,7 @@ class giris_pen():
                     gecici_gider = open("hesap_dosyalari/gecici_gider.csv", "w")
                     gecici_kasadan_alinan = open("hesap_dosyalari/gecici_kasadan_alinan.csv", "w")
                     gecici_pos_gun_sonu = open("hesap_dosyalari/gecici_pos_gun_sonu.csv", "w")
+                    gecici_alinan_odeme = open("hesap_dosyalari/gecici_odeme_al.csv","w")
 
                     if firma == "ETT":
                         for i in yapilacak_odeme1:
@@ -638,6 +667,11 @@ class giris_pen():
                                 hepsi = "Yapılacak Ödeme, " + str(i)
                                 sonuc_dosyası.write(hepsi)
                                 gecici_yapilacak_odeme.write(i)
+                        for i in alinan_odeme1:
+                            if i.endswith(firma_ara):
+                                hepsi = "Alınan Ödeme, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_alinan_odeme.write(i)
                         for i in kasadan_odeme1:
                             if i.endswith(firma_ara):
                                 hepsi = "Kasadan Ödeme, " + str(i)
@@ -691,6 +725,7 @@ class giris_pen():
                     gecici_kasadisi_odeme.close()
                     gecici_pos_gun_sonu.close()
                     gecici_yapilacak_odeme.close()
+                    gecici_alinan_odeme.close()
                     #BURADA VERİNİN İÇİNDEKİ BİR KOLONDAN TOPLAMLARI ALDIK VE YAZDIRDIK.
                     """
                     pencere = Tk()
@@ -705,10 +740,10 @@ class giris_pen():
                         toplam_tam = 0
                         miktarlar = yazimiz.iloc[:,2:3].values
                         for i in miktarlar:
-                            toplam_tam = toplam_tam + i
+                            toplam_tam = float(toplam_tam) + float(i)
                         
                         top_lab = Label(pencere, text="Toplam:")
-                        topl_lab_son = Label(pencere, text=int(toplam_tam))
+                        topl_lab_son = Label(pencere, text=float(format(toplam_tam, ".2f")))
                         top_lab.place(x=10,y=480)
                         topl_lab_son.place(x=70, y=480)
 
@@ -720,10 +755,10 @@ class giris_pen():
                         toplam_kas_od = 0
                         miktarlar1 = kasadan_odenen.iloc[:,1:2].values
                         for i in miktarlar1:
-                            toplam_kas_od = toplam_kas_od + i
+                            toplam_kas_od = float(toplam_kas_od) + float(i)
 
                         top_kas_od_lab = Label(pencere, text="Kasadan Ödeme:")
-                        topl_kas_od_lab_son = Label(pencere, text=int(toplam_kas_od))
+                        topl_kas_od_lab_son = Label(pencere, text=float(format(toplam_kas_od, ".2f")))
                         top_kas_od_lab.place(x=220,y=480)
                         topl_kas_od_lab_son.place(x=335, y=480)
 
@@ -735,10 +770,10 @@ class giris_pen():
                         toplam_kas_al = 0
                         miktarlar2 = kasadan_alinan.iloc[:,1:2].values
                         for i in miktarlar2:
-                            toplam_kas_al = toplam_kas_al + i
+                            toplam_kas_al = float(toplam_kas_al) + float(i)
 
                         top_kas_al_lab = Label(pencere, text="Kasadan Alınan:")
-                        topl_kas_al_lab_son = Label(pencere, text=int(toplam_kas_al))
+                        topl_kas_al_lab_son = Label(pencere, text=float(format(toplam_kas_al,".2f")))
                         top_kas_al_lab.place(x=430,y=480)
                         topl_kas_al_lab_son.place(x=550, y=480)
 
@@ -750,10 +785,10 @@ class giris_pen():
                         toplam_kasadisi_od = 0
                         miktarlar3 = kasadisi_odenen.iloc[:,1:2].values
                         for i in miktarlar3:
-                            toplam_kasadisi_od = toplam_kasadisi_od + i
+                            toplam_kasadisi_od = float(toplam_kasadisi_od) + float(i)
 
                         top_kasadisi_od_lab = Label(pencere, text="Kasa Dışı Ödeme:")
-                        topl_kasadisi_od_lab_son = Label(pencere, text=int(toplam_kasadisi_od))
+                        topl_kasadisi_od_lab_son = Label(pencere, text=float(format(toplam_kasadisi_od,".2f")))
                         top_kasadisi_od_lab.place(x=10,y=520)
                         topl_kasadisi_od_lab_son.place(x=130, y=520)
 
@@ -765,10 +800,10 @@ class giris_pen():
                         toplam_yapilacak_od = 0
                         miktarlar4 = yapilacak_od.iloc[:,1:2].values
                         for i in miktarlar4:
-                            toplam_yapilacak_od = toplam_yapilacak_od + i
+                            toplam_yapilacak_od = float(toplam_yapilacak_od) + float(i)
 
                         top_yap_od_lab = Label(pencere, text="Yapılacak Ödeme:")
-                        topl_yap_od_lab_son = Label(pencere, text=int(toplam_yapilacak_od))
+                        topl_yap_od_lab_son = Label(pencere, text=float(format(toplam_yapilacak_od,".2f")))
                         top_yap_od_lab.place(x=220,y=520)
                         topl_yap_od_lab_son.place(x=340, y=520)
 
@@ -780,12 +815,43 @@ class giris_pen():
                         toplam_gid = 0
                         miktarlar5 = gid.iloc[:,1:2].values
                         for i in miktarlar5:
-                            toplam_gid = toplam_gid + i
+                            toplam_gid = float(toplam_gid) + float(i)
                         
                         top_gid_lab = Label(pencere, text="Gider:")
-                        topl_gid_son = Label(pencere, text=int(toplam_gid))
+                        topl_gid_son = Label(pencere, text=float(format(toplam_gid,".2f")))
                         top_gid_lab.place(x=430,y=520)
                         topl_gid_son.place(x=475, y=520)
+
+                    except pd.errors.EmptyDataError:
+                        pass
+                    
+                    try:
+                        alinan_odeme = pd.read_csv("hesap_dosyalari/gecici_odeme_al.csv",header=None,encoding = "ISO-8859-1")
+                        toplam_al_od = 0
+                        miktarlar1 = alinan_odeme.iloc[:,1:2].values
+                        for i in miktarlar1:
+                            toplam_al_od = float(toplam_al_od) + float(i)
+
+                        top_al_od_lab = Label(pencere, text="Alınan Ödeme:")
+                        topl_al_od_lab_son = Label(pencere, text=float(format(toplam_al_od,".2f")))
+                        top_al_od_lab.place(x=10,y=560)
+                        topl_al_od_lab_son.place(x=130, y=560)
+
+                    except pd.errors.EmptyDataError:
+                        pass
+
+                    try:
+                        sonucum = (toplam_kas_od+toplam_kasadisi_od+toplam_kas_al) - (toplam_al_od + toplam_yapilacak_od)
+                        if sonucum > 0:
+                            sonuc = Label(pencere, text="Toplam Alacak:", fg="green")
+                            sonuc_son = Label(pencere, fg="green", text=float(format(sonucum,".2f")))
+                            sonuc.place(x=430,y=560)
+                            sonuc_son.place(x=550, y=560)
+                        else:
+                            sonuc = Label(pencere, text="Toplam Borç:", fg="red")
+                            sonuc_son = Label(pencere, fg="red", text=float(format(sonucum,".2f")))
+                            sonuc.place(x=430,y=560)
+                            sonuc_son.place(x=550, y=560)
 
                     except pd.errors.EmptyDataError:
                         pass
@@ -845,6 +911,7 @@ class giris_pen():
                     gider = open("hesap_dosyalari/gider.csv","r")
                     kasadan_alinan = open("hesap_dosyalari/kasadan_alinan.csv","r")
                     pos_gun_sonu = open("hesap_dosyalari/pos_gun_sonu.csv","r")
+                    alinan_odeme = open("hesap_dosyalari/odeme_al.csv","r")
                     
                     gecici_yapilacak_odeme = open("hesap_dosyalari/gecici_yapilacak_odeme.csv", "w")
                     gecici_kasadan_odeme = open("hesap_dosyalari/gecici_kasadan_odeme.csv", "w")
@@ -852,6 +919,7 @@ class giris_pen():
                     gecici_gider = open("hesap_dosyalari/gecici_gider.csv", "w")
                     gecici_kasadan_alinan = open("hesap_dosyalari/gecici_kasadan_alinan.csv", "w")
                     gecici_pos_gun_sonu = open("hesap_dosyalari/gecici_pos_gun_sonu.csv", "w")
+                    gecici_alinan_odeme = open("hesap_dosyalari/gecici_odeme_al.csv","w")
 
                     if firma == "TÜMÜ":
                         
@@ -862,6 +930,14 @@ class giris_pen():
                                 yaz = "Yapilacak Ödeme," + i
                                 sonuc_dosyasi.write(yaz)
                                 gecici_yapilacak_odeme.write(i)
+                        
+                        for i in alinan_odeme:
+                            if i.startswith("tarih"):
+                                pass
+                            else:
+                                yaz = "Alinan Ödeme," + i
+                                sonuc_dosyasi.write(yaz)
+                                gecici_alinan_odeme.write(i)
 
                         for i in kasadan_odeme:
                             if i.startswith("tarih"):
@@ -910,6 +986,7 @@ class giris_pen():
                         gecici_kasadisi_odeme.close()
                         gecici_pos_gun_sonu.close()
                         gecici_yapilacak_odeme.close()
+                        gecici_alinan_odeme.close()
                         #YAZININ ALINMASI VE TARİHE GÖRE ELENMESİ
                     
                         yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
@@ -931,7 +1008,7 @@ class giris_pen():
                             toplam_tam = 0
                             miktarlar = toplamim.iloc[:,2:3].values
                             for i in miktarlar:
-                                toplam_tam = toplam_tam + i
+                                toplam_tam = float(toplam_tam) + float(i)
                             
                             top_lab = Label(pencere, text="Toplam:")
                             topl_lab_son = Label(pencere, text=int(toplam_tam))
@@ -949,7 +1026,7 @@ class giris_pen():
                             toplam_kas_od = 0
                             miktarlar1 = kasadan_odenen.iloc[:,1:2].values
                             for i in miktarlar1:
-                                toplam_kas_od = toplam_kas_od + i
+                                toplam_kas_od = float(toplam_kas_od) + float(i)
 
                             top_kas_od_lab = Label(pencere, text="Kasadan Ödeme:")
                             topl_kas_od_lab_son = Label(pencere, text=int(toplam_kas_od))
@@ -967,7 +1044,7 @@ class giris_pen():
                             toplam_kas_al = 0
                             miktarlar2 = kasadan_alinan.iloc[:,1:2].values
                             for i in miktarlar2:
-                                toplam_kas_al = toplam_kas_al + i
+                                toplam_kas_al = float(toplam_kas_al) + float(i)
 
                             top_kas_al_lab = Label(pencere, text="Kasadan Alınan:")
                             topl_kas_al_lab_son = Label(pencere, text=int(toplam_kas_al))
@@ -985,7 +1062,7 @@ class giris_pen():
                             toplam_kasadisi_od = 0
                             miktarlar3 = kasadisi_odenen.iloc[:,1:2].values
                             for i in miktarlar3:
-                                toplam_kasadisi_od = toplam_kasadisi_od + i
+                                toplam_kasadisi_od = float(toplam_kasadisi_od) + float(i)
 
                             top_kasadisi_od_lab = Label(pencere, text="Kasa Dışı Ödeme:")
                             topl_kasadisi_od_lab_son = Label(pencere, text=int(toplam_kasadisi_od))
@@ -1003,7 +1080,7 @@ class giris_pen():
                             toplam_yapilacak_od = 0
                             miktarlar4 = yapilacak_od.iloc[:,1:2].values
                             for i in miktarlar4:
-                                toplam_yapilacak_od = toplam_yapilacak_od + i
+                                toplam_yapilacak_od = float(toplam_yapilacak_od) + float(i)
 
                             top_yap_od_lab = Label(pencere, text="Yapılacak Ödeme:")
                             topl_yap_od_lab_son = Label(pencere, text=int(toplam_yapilacak_od))
@@ -1021,12 +1098,46 @@ class giris_pen():
                             toplam_gid = 0
                             miktarlar5 = gid.iloc[:,1:2].values
                             for i in miktarlar5:
-                                toplam_gid = toplam_gid + i
+                                toplam_gid = float(toplam_gid) + float(i)
                             
                             top_gid_lab = Label(pencere, text="Gider:")
                             topl_gid_son = Label(pencere, text=int(toplam_gid))
                             top_gid_lab.place(x=430,y=520)
                             topl_gid_son.place(x=475, y=520)
+
+                        except pd.errors.EmptyDataError:
+                            pass
+                        
+                        try:
+                            al_od = pd.read_csv("hesap_dosyalari/gecici_odeme_al.csv",header=None,encoding = "ISO-8859-1")
+                            al_od[0] = pd.to_datetime(al_od[0])
+                            mask = (al_od[0] >= baslangic_tarihi1) & (al_od[0] <= bitis_tarihi1)
+                            al_od = al_od.loc[mask]
+                            toplam_al_od = 0
+                            miktarlar6 = al_od.iloc[:,1:2].values
+                            for i in miktarlar6:
+                                toplam_al_od = float(toplam_al_od) + float(i)
+
+                            top_al_od_lab = Label(pencere, text="Alınan Ödeme:")
+                            topl_al_od_lab_son = Label(pencere, text=int(toplam_al_od))
+                            top_al_od_lab.place(x=10,y=560)
+                            topl_al_od_lab_son.place(x=130, y=560)
+
+                        except pd.errors.EmptyDataError:
+                            pass
+
+                        try:
+                            sonucum = (toplam_kas_od+toplam_kasadisi_od+toplam_kas_al) - (toplam_al_od + toplam_yapilacak_od)
+                            if sonucum > 0:
+                                sonuc = Label(pencere, text="Toplam Alacak:", fg="green")
+                                sonuc_son = Label(pencere, fg="green", text=float(format(sonucum,".2f")))
+                                sonuc.place(x=430,y=560)
+                                sonuc_son.place(x=550, y=560)
+                            else:
+                                sonuc = Label(pencere, text="Toplam Borç:", fg="red")
+                                sonuc_son = Label(pencere, fg="red", text=float(format(sonucum,".2f")))
+                                sonuc.place(x=430,y=560)
+                                sonuc_son.place(x=550, y=560)
 
                         except pd.errors.EmptyDataError:
                             pass
@@ -1073,6 +1184,7 @@ class giris_pen():
                         kasadisi_odeme1 = open("hesap_dosyalari/kasadisi_odeme.csv", "r")
                         gider1 = open("hesap_dosyalari/gider.csv", "r")
                         kasadan_alinan1 = open("hesap_dosyalari/kasadan_alinan.csv", "r")
+                        alinan_odeme1 = open("hesap_dosyalari/odeme_al.csv","r")
                         #pos_gun_sonu1 = open("hesap_dosyalari/pos_gun_sonu.csv", "r")
 
                         gecici_yapilacak_odeme = open("hesap_dosyalari/gecici_yapilacak_odeme.csv", "w")
@@ -1081,6 +1193,7 @@ class giris_pen():
                         gecici_gider = open("hesap_dosyalari/gecici_gider.csv", "w")
                         gecici_kasadan_alinan = open("hesap_dosyalari/gecici_kasadan_alinan.csv", "w")
                         gecici_pos_gun_sonu = open("hesap_dosyalari/gecici_pos_gun_sonu.csv", "w")
+                        gecici_alinan_odeme = open("hesap_dosyalari/gecici_odeme_al.csv","w")
 
                         if firma == "ETT":
                             for i in yapilacak_odeme1:
@@ -1088,6 +1201,11 @@ class giris_pen():
                                     hepsi = "Yapılacak Ödeme, " + str(i)
                                     sonuc_dosyası.write(hepsi)
                                     gecici_yapilacak_odeme.write(i)
+                            for i in alinan_odeme1:
+                                if i.endswith(firma_ara):
+                                    hepsi = "Alınan Ödeme, " + str(i)
+                                    sonuc_dosyası.write(hepsi)
+                                    gecici_alinan_odeme.write(i)
                             for i in kasadan_odeme1:
                                 if i.endswith(firma_ara):
                                     hepsi = "Kasadan Ödeme, " + str(i)
@@ -1114,6 +1232,11 @@ class giris_pen():
                                     hepsi = "Yapılacak Ödeme, " + str(i)
                                     sonuc_dosyası.write(hepsi)
                                     gecici_yapilacak_odeme.write(i)
+                            for i in alinan_odeme1:
+                                if i.endswith(firma):
+                                    hepsi = "Alınan Ödeme, " + str(i)
+                                    sonuc_dosyası.write(hepsi)
+                                    gecici_alinan_odeme.write(i)
                             for i in kasadan_odeme1:
                                 if i.endswith(firma):
                                     hepsi = "Kasadan Ödeme, " + str(i)
@@ -1141,6 +1264,7 @@ class giris_pen():
                         gecici_kasadisi_odeme.close()
                         gecici_pos_gun_sonu.close()
                         gecici_yapilacak_odeme.close()
+                        gecici_alinan_odeme.close()
                         #BURADA VERİNİN İÇİNDEKİ BİR KOLONDAN TOPLAMLARI ALDIK VE YAZDIRDIK.
                         
                         yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
@@ -1162,7 +1286,7 @@ class giris_pen():
                             toplam_tam = 0
                             miktarlar = toplamim.iloc[:,2:3].values
                             for i in miktarlar:
-                                toplam_tam = toplam_tam + i
+                                toplam_tam = float(toplam_tam) + float(i)
                             
                             top_lab = Label(pencere, text="Toplam:")
                             topl_lab_son = Label(pencere, text=int(toplam_tam))
@@ -1180,7 +1304,7 @@ class giris_pen():
                             toplam_kas_od = 0
                             miktarlar1 = kasadan_odenen.iloc[:,1:2].values
                             for i in miktarlar1:
-                                toplam_kas_od = toplam_kas_od + i
+                                toplam_kas_od = float(toplam_kas_od) + float(i)
 
                             top_kas_od_lab = Label(pencere, text="Kasadan Ödeme:")
                             topl_kas_od_lab_son = Label(pencere, text=int(toplam_kas_od))
@@ -1198,7 +1322,7 @@ class giris_pen():
                             toplam_kas_al = 0
                             miktarlar2 = kasadan_alinan.iloc[:,1:2].values
                             for i in miktarlar2:
-                                toplam_kas_al = toplam_kas_al + i
+                                toplam_kas_al = float(toplam_kas_al) + float(i)
 
                             top_kas_al_lab = Label(pencere, text="Kasadan Alınan:")
                             topl_kas_al_lab_son = Label(pencere, text=int(toplam_kas_al))
@@ -1216,7 +1340,7 @@ class giris_pen():
                             toplam_kasadisi_od = 0
                             miktarlar3 = kasadisi_odenen.iloc[:,1:2].values
                             for i in miktarlar3:
-                                toplam_kasadisi_od = toplam_kasadisi_od + i
+                                toplam_kasadisi_od = float(toplam_kasadisi_od) + float(i)
 
                             top_kasadisi_od_lab = Label(pencere, text="Kasa Dışı Ödeme:")
                             topl_kasadisi_od_lab_son = Label(pencere, text=int(toplam_kasadisi_od))
@@ -1234,7 +1358,7 @@ class giris_pen():
                             toplam_yapilacak_od = 0
                             miktarlar4 = yapilacak_od.iloc[:,1:2].values
                             for i in miktarlar4:
-                                toplam_yapilacak_od = toplam_yapilacak_od + i
+                                toplam_yapilacak_od = float(toplam_yapilacak_od) + float(i)
 
                             top_yap_od_lab = Label(pencere, text="Yapılacak Ödeme:")
                             topl_yap_od_lab_son = Label(pencere, text=int(toplam_yapilacak_od))
@@ -1252,12 +1376,46 @@ class giris_pen():
                             toplam_gid = 0
                             miktarlar5 = gid.iloc[:,1:2].values
                             for i in miktarlar5:
-                                toplam_gid = toplam_gid + i
+                                toplam_gid = float(toplam_gid) + float(i)
                             
                             top_gid_lab = Label(pencere, text="Gider:")
                             topl_gid_son = Label(pencere, text=int(toplam_gid))
                             top_gid_lab.place(x=430,y=520)
                             topl_gid_son.place(x=475, y=520)
+
+                        except pd.errors.EmptyDataError:
+                            pass
+
+                        try:
+                            al_od = pd.read_csv("hesap_dosyalari/gecici_odeme_al.csv",header=None,encoding = "ISO-8859-1")
+                            al_od[0] = pd.to_datetime(al_od[0])
+                            mask = (al_od[0] >= baslangic_tarihi1) & (al_od[0] <= bitis_tarihi1)
+                            al_od = al_od.loc[mask]
+                            toplam_al_od = 0
+                            miktarlar6 = al_od.iloc[:,1:2].values
+                            for i in miktarlar6:
+                                toplam_al_od = float(toplam_al_od) + float(i)
+                            
+                            top_gid_lab = Label(pencere, text="Gider:")
+                            topl_gid_son = Label(pencere, text=int(toplam_gid))
+                            top_gid_lab.place(x=10,y=560)
+                            topl_gid_son.place(x=130, y=560)
+
+                        except pd.errors.EmptyDataError:
+                            pass
+                        
+                        try:
+                            sonucum = (toplam_kas_od+toplam_kasadisi_od+toplam_kas_al) - (toplam_al_od + toplam_yapilacak_od)
+                            if sonucum > 0:
+                                sonuc = Label(pencere, text="Toplam Alacak:", fg="green")
+                                sonuc_son = Label(pencere, fg="green", text=float(format(sonucum,".2f")))
+                                sonuc.place(x=430,y=560)
+                                sonuc_son.place(x=550, y=560)
+                            else:
+                                sonuc = Label(pencere, text="Toplam Borç:", fg="red")
+                                sonuc_son = Label(pencere, fg="red", text=float(format(sonucum,".2f")))
+                                sonuc.place(x=430,y=560)
+                                sonuc_son.place(x=550, y=560)
 
                         except pd.errors.EmptyDataError:
                             pass
@@ -1292,8 +1450,10 @@ class giris_pen():
                         kaydir.pack(side=RIGHT, fill=Y)
                         yazi_yerimiz.config(yscrollcommand=kaydir.set)
                         kaydir.config(command=yazi_yerimiz.yview)
+                
                 except ValueError:
                     messagebox.showwarning(title = "UYARI", message="Tarih değeri yanlış ya da eksik girildi. Lütfen kontrol ediniz")
+                
         except UnboundLocalError:
             messagebox.showwarning(title="UYARI!", message="Sonuç Bulunamadı!")
 
@@ -1311,12 +1471,15 @@ def ilkleme():
     gpgs=open("hesap_dosyalari/gecici_pos_gun_sonu.csv","a")
     gsd=open("hesap_dosyalari/gecici_sonuc_dosyasi.csv","a")
     gyo=open("hesap_dosyalari/gecici_yapilacak_odeme.csv","a")
+    gol=open("hesap_dosyalari/gecici_odeme_al.csv","a")
     pgs=open("hesap_dosyalari/pos_gun_sonu.csv","a")
     yo=open("hesap_dosyalari/yapilacak_odeme.csv","a")
     ka=open("hesap_dosyalari/kasadan_alinan.csv","a")
     ko=open("hesap_dosyalari/kasadan_odeme.csv","a")
     kdo=open("hesap_dosyalari/kasadisi_odeme.csv","a")
     g=open("hesap_dosyalari/gider.csv","a")
+    ol=open("hesap_dosyalari/odeme_al.csv","a")
+
 
     gg.close()
     gka.close()
@@ -1325,12 +1488,14 @@ def ilkleme():
     gpgs.close()
     gsd.close()
     gyo.close()
+    gol.close()
     pgs.close()
     yo.close()
     ka.close()
     ko.close()
     kdo.close()
     g.close()
+    ol.close()
 
 ilkleme()
 
