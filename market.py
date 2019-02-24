@@ -67,117 +67,120 @@ class giris_pen():
                 firma = str(listbox.get())
                 tip = str(self.degis_odeme.get())
                 miktar = float(miktar.replace(",","."))
-                if firma != "":
-                    if tip == "Gider":
-                        file = open("hesap_dosyalari/gider.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-                    
-                    elif tip == "Yapılacak Ödeme":
-                        file = open("hesap_dosyalari/yapilacak_odeme.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-                    
-                    elif tip == "Ödeme Al":
-                        file = open("hesap_dosyalari/odeme_al.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-
-                    elif tip == "Kasadan Yapılan Ödeme":
-                        file = open("hesap_dosyalari/kasadan_odeme.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-                    
-                    elif tip == "Kasa Dışı Ödeme":
-                        file = open("hesap_dosyalari/kasadisi_odeme.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-                    
-                    elif tip == "Kasadan Alınan Miktar":
-                        file = open("hesap_dosyalari/kasadan_alinan.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-                    
-                    elif tip == "POS Gün Sonu":
-                        file = open("hesap_dosyalari/pos_gun_sonu.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-                    
-                    elif tip == "Alınacak Ödeme":
-                        file = open("hesap_dosyalari/alinacak_odeme.csv", "a")
-                        if firma == "ETT":
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma+"\n")
-                            file.close()
-                        else:
-                            sonuc = str(tarih+","+str(miktar)+",")
-                            file.write(sonuc)
-                            file.write(firma)
-                            file.close()
-
-                    if tip != "Seçiniz...":
-                        messagebox.showinfo("Sonuç","İşlem Başarılı!")
-                    else:
-                        messagebox.showwarning(title="UYARI!", message="Lütfen Ödeme Tipini Seçiniz!")
+                if firma not in self.firmalar:
+                    messagebox.showwarning("UYARI!","Firma Adı Yanlış Girildi!\nLütfen firma ismini kontrol ediniz!")
                 else:
-                    messagebox.showinfo("UYARI!","Lütfen Firma Seçiniz!")
+                    if firma != "":
+                        if tip == "Gider":
+                            file = open("hesap_dosyalari/gider.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+                        
+                        elif tip == "Yapılacak Ödeme":
+                            file = open("hesap_dosyalari/yapilacak_odeme.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+                        
+                        elif tip == "Ödeme Al":
+                            file = open("hesap_dosyalari/odeme_al.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+
+                        elif tip == "Kasadan Yapılan Ödeme":
+                            file = open("hesap_dosyalari/kasadan_odeme.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+                        
+                        elif tip == "Kasa Dışı Ödeme":
+                            file = open("hesap_dosyalari/kasadisi_odeme.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+                        
+                        elif tip == "Kasadan Alınan Miktar":
+                            file = open("hesap_dosyalari/kasadan_alinan.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+                        
+                        elif tip == "POS Gün Sonu":
+                            file = open("hesap_dosyalari/pos_gun_sonu.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+                        
+                        elif tip == "Alınacak Ödeme":
+                            file = open("hesap_dosyalari/alinacak_odeme.csv", "a")
+                            if firma == "ETT":
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma+"\n")
+                                file.close()
+                            else:
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+
+                        if tip != "Seçiniz...":
+                            messagebox.showinfo("Sonuç","İşlem Başarılı!")
+                        else:
+                            messagebox.showwarning(title="UYARI!", message="Lütfen Ödeme Tipini Seçiniz!")
+                    else:
+                        messagebox.showinfo("UYARI!","Lütfen Firma Seçiniz!")
             except ValueError:
                 messagebox.showwarning(title="UYARI!", message="Yanlış ya da Eksik Değer Girildi!")
 
@@ -260,7 +263,8 @@ class giris_pen():
         #firma_ekle_pencere.pack()
 
     def firma_ekle_fonk(self,Event):
-        self.firma_ismi =self.firma_adi.get()
+        self.firma_ismi = self.firma_adi.get()
+        
         
         
         def firma_ilkleme():
