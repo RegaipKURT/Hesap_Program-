@@ -1,4 +1,5 @@
 import os
+import re
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
@@ -7,7 +8,6 @@ import datetime
 
 tarih = datetime.datetime.now().strftime("%d/%m/%y")
 date_now = datetime.datetime.strptime(tarih, "%d/%m/%y")
-firmalar_oku = open("firmalar.csv", "r")
 odeme_tipleri = ["Yapılacak Ödeme", "Kasadan Yapılan Ödeme", "Kasa Dışı Ödeme","Kasadan Alınan Miktar", "POS Gün Sonu", "Gider", "Ödeme Al", "Alınacak Ödeme"]
 odeme_tipleri.sort()
 pd.options.display.max_rows = None
@@ -61,10 +61,12 @@ class giris_pen():
     def hesap_penceresi(self, Event):
         
         def uyari(Event):
+            
             try:
-                miktar = float(self.miktar_deger.get())
+                miktar = str(self.miktar_deger.get())
                 firma = str(listbox.get())
                 tip = str(self.degis_odeme.get())
+                miktar = float(miktar.replace(",","."))
                 if firma != "":
                     if tip == "Gider":
                         file = open("hesap_dosyalari/gider.csv", "a")
@@ -258,7 +260,8 @@ class giris_pen():
         #firma_ekle_pencere.pack()
 
     def firma_ekle_fonk(self,Event):
-        self.firma_ismi = self.firma_adi.get()
+        self.firma_ismi =self.firma_adi.get()
+        
         
         def firma_ilkleme():
             pgs=open("hesap_dosyalari/pos_gun_sonu.csv","a")
@@ -720,78 +723,41 @@ class giris_pen():
                     gecici_alinan_odeme = open("hesap_dosyalari/gecici_odeme_al.csv","w")
                     gecici_alinacak_odeme = open("hesap_dosyalari/gecici_alinacak_odeme.csv","w")
 
-                    if firma == "ETT":
-                        for i in yapilacak_odeme1:
-                            if i.endswith(firma_ara):
-                                hepsi = "Yapılacak Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_yapilacak_odeme.write(i)
-                        for i in alinacak_odeme1:
-                            if i.endswith(firma_ara):
-                                hepsi = "Alınacak Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_alinacak_odeme.write(i)
-                        for i in alinan_odeme1:
-                            if i.endswith(firma_ara):
-                                hepsi = "Alınan Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_alinan_odeme.write(i)
-                        for i in kasadan_odeme1:
-                            if i.endswith(firma_ara):
-                                hepsi = "Kasadan Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_kasadan_odeme.write(i)
-                        for i in kasadisi_odeme1:
-                            if i.endswith(firma_ara):
-                                hepsi = "Kasa Dışı Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_kasadisi_odeme.write(i)
-                        for i in gider1:
-                            if i.endswith(firma_ara):
-                                hepsi = "Gider, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_gider.write(i)
-                        for i in kasadan_alinan1:
-                            if i.endswith(firma_ara):
-                                hepsi = "Kasadan Alınan, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_kasadan_alinan.write(i)
-                    else:
-                        for i in yapilacak_odeme1:
-                            if i.endswith(firma):
-                                hepsi = "Yapılacak Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_yapilacak_odeme.write(i)
-                        for i in alinacak_odeme1:
-                            if i.endswith(firma):
-                                hepsi = "Alınacak Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_alinacak_odeme.write(i)
-                        for i in kasadan_odeme1:
-                            if i.endswith(firma):
-                                hepsi = "Kasadan Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_kasadan_odeme.write(i)
-                        for i in kasadisi_odeme1:
-                            if i.endswith(firma):
-                                hepsi = "Kasa Dışı Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_kasadisi_odeme.write(i)
-                        for i in gider1:
-                            if i.endswith(firma):
-                                hepsi = "Gider, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_gider.write(i)
-                        for i in kasadan_alinan1:
-                            if i.endswith(firma):
-                                hepsi = "Kasadan Alınan, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_kasadan_alinan.write(i)
-                        for i in alinan_odeme1:
-                            if i.endswith(firma):
-                                hepsi = "Alınan Ödeme, " + str(i)
-                                sonuc_dosyası.write(hepsi)
-                                gecici_alinan_odeme.write(i)
+                    for i in yapilacak_odeme1:
+                        if i.endswith(firma):
+                            hepsi = "Yapılacak Ödeme, " + str(i)
+                            sonuc_dosyası.write(hepsi)
+                            gecici_yapilacak_odeme.write(i)
+                    for i in alinacak_odeme1:
+                        if i.endswith(firma):
+                            hepsi = "Alınacak Ödeme, " + str(i)
+                            sonuc_dosyası.write(hepsi)
+                            gecici_alinacak_odeme.write(i)
+                    for i in kasadan_odeme1:
+                        if i.endswith(firma):
+                            hepsi = "Kasadan Ödeme, " + str(i)
+                            sonuc_dosyası.write(hepsi)
+                            gecici_kasadan_odeme.write(i)
+                    for i in kasadisi_odeme1:
+                        if i.endswith(firma):
+                            hepsi = "Kasa Dışı Ödeme, " + str(i)
+                            sonuc_dosyası.write(hepsi)
+                            gecici_kasadisi_odeme.write(i)
+                    for i in gider1:
+                        if i.endswith(firma):
+                            hepsi = "Gider, " + str(i)
+                            sonuc_dosyası.write(hepsi)
+                            gecici_gider.write(i)
+                    for i in kasadan_alinan1:
+                        if i.endswith(firma):
+                            hepsi = "Kasadan Alınan, " + str(i)
+                            sonuc_dosyası.write(hepsi)
+                            gecici_kasadan_alinan.write(i)
+                    for i in alinan_odeme1:
+                        if i.endswith(firma):
+                            hepsi = "Alınan Ödeme, " + str(i)
+                            sonuc_dosyası.write(hepsi)
+                            gecici_alinan_odeme.write(i)
                     sonuc_dosyası.close()
                     gecici_kasadan_odeme.close()
                     gecici_kasadan_alinan.close()
@@ -1378,7 +1344,7 @@ class giris_pen():
                         kasa_n_sonucu_gunluk.place(x=140,y=470)
                         kasa_n_sonucu_aylik.place(x=400,y=470)
 
-                        borc_alacak = (alinacak_odeme_toplam - alinan_odeme_toplam)
+                        borc_alacak = (toplam_alin_od - toplam_al_od)
 
                         if borc_alacak > 0:
                             veresiye = Label(pencere,text="TOPLAM ALACAĞINIZ VAR:", bg ="red")
@@ -1425,8 +1391,6 @@ class giris_pen():
                         #yazi_yerimiz.pack(side=BOTTOM, fill=X)
 
                     else:
-                        #firmaya göre arama stringi sadece ETT için
-                        firma_ara = firma + "\n"
 
                         #burada dosya işlemleri ile yapıyoruz...
                         yapilacak_odeme1 = open("hesap_dosyalari/yapilacak_odeme.csv", "r")
@@ -1447,78 +1411,41 @@ class giris_pen():
                         gecici_alinan_odeme = open("hesap_dosyalari/gecici_odeme_al.csv","w")
                         gecici_alinacak_odeme = open("hesap_dosyalari/gecici_alinacak_odeme.csv","w")
 
-                        if firma == "ETT":
-                            for i in yapilacak_odeme1:
-                                if i.endswith(firma_ara):
-                                    hepsi = "Yapılacak Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_yapilacak_odeme.write(i)
-                            for i in alinan_odeme1:
-                                if i.endswith(firma_ara):
-                                    hepsi = "Alınan Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_alinan_odeme.write(i)
-                            for i in alinacak_odeme1:
-                                if i.endswith(firma_ara):
-                                    hepsi = "Alınacak Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_alinacak_odeme.write(i)
-                            for i in kasadan_odeme1:
-                                if i.endswith(firma_ara):
-                                    hepsi = "Kasadan Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_kasadan_odeme.write(i)
-                            for i in kasadisi_odeme1:
-                                if i.endswith(firma_ara):
-                                    hepsi = "Kasa Dışı Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_kasadisi_odeme.write(i)
-                            for i in gider1:
-                                if i.endswith(firma_ara):
-                                    hepsi = "Gider, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_gider.write(i)
-                            for i in kasadan_alinan1:
-                                if i.endswith(firma_ara):
-                                    hepsi = "Kasadan Alınan, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_kasadan_alinan.write(i)
-                        else:
-                            for i in yapilacak_odeme1:
-                                if i.endswith(firma):
-                                    hepsi = "Yapılacak Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_yapilacak_odeme.write(i)
-                            for i in alinan_odeme1:
-                                if i.endswith(firma):
-                                    hepsi = "Alınan Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_alinan_odeme.write(i)
-                            for i in alinacak_odeme1:
-                                if i.endswith(firma):
-                                    hepsi = "Alınacak Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_alinacak_odeme.write(i)
-                            for i in kasadan_odeme1:
-                                if i.endswith(firma):
-                                    hepsi = "Kasadan Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_kasadan_odeme.write(i)
-                            for i in kasadisi_odeme1:
-                                if i.endswith(firma):
-                                    hepsi = "Kasa Dışı Ödeme, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_kasadisi_odeme.write(i)
-                            for i in gider1:
-                                if i.endswith(firma):
-                                    hepsi = "Gider, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_gider.write(i)
-                            for i in kasadan_alinan1:
-                                if i.endswith(firma):
-                                    hepsi = "Kasadan Alınan, " + str(i)
-                                    sonuc_dosyası.write(hepsi)
-                                    gecici_kasadan_alinan.write(i)
+                        for i in yapilacak_odeme1:
+                            if i.endswith(firma):
+                                hepsi = "Yapılacak Ödeme, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_yapilacak_odeme.write(i)
+                        for i in alinan_odeme1:
+                            if i.endswith(firma):
+                                hepsi = "Alınan Ödeme, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_alinan_odeme.write(i)
+                        for i in alinacak_odeme1:
+                            if i.endswith(firma):
+                                hepsi = "Alınacak Ödeme, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_alinacak_odeme.write(i)
+                        for i in kasadan_odeme1:
+                            if i.endswith(firma):
+                                hepsi = "Kasadan Ödeme, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_kasadan_odeme.write(i)
+                        for i in kasadisi_odeme1:
+                            if i.endswith(firma):
+                                hepsi = "Kasa Dışı Ödeme, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_kasadisi_odeme.write(i)
+                        for i in gider1:
+                            if i.endswith(firma):
+                                hepsi = "Gider, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_gider.write(i)
+                        for i in kasadan_alinan1:
+                            if i.endswith(firma):
+                                hepsi = "Kasadan Alınan, " + str(i)
+                                sonuc_dosyası.write(hepsi)
+                                gecici_kasadan_alinan.write(i)
                         sonuc_dosyası.close()
                         gecici_kasadan_odeme.close()
                         gecici_kasadan_alinan.close()
@@ -1739,6 +1666,7 @@ def ilkleme():
     except FileExistsError:
         pass
     
+    firma = open("firmalar.csv", "a")
     gg=open("hesap_dosyalari/gecici_gider.csv","a")
     gka=open("hesap_dosyalari/gecici_kasadan_alinan.csv","a")
     gko=open("hesap_dosyalari/gecici_kasadan_odeme.csv","a")
@@ -1757,7 +1685,7 @@ def ilkleme():
     ol=open("hesap_dosyalari/odeme_al.csv","a")
     ad = open("hesap_dosyalari/alinacak_odeme.csv","a")
 
-
+    firma.close()
     gg.close()
     gka.close()
     gko.close()
@@ -1777,6 +1705,7 @@ def ilkleme():
     ad.close()
 
 ilkleme()
+firmalar_oku = open("firmalar.csv", "r")
 
 pencere = Tk()
 pencere.title("Market Programı")
