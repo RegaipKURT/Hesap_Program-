@@ -272,7 +272,6 @@ class giris_pen():
 
             miktar = 0.0
             firma = self.firma_ismi
-            tip = str(self.degis_odeme.get())
 
             sonuc = str(tarih+","+str(miktar)+",")
             pgs.write(sonuc)
