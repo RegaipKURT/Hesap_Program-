@@ -264,70 +264,70 @@ class giris_pen():
 
     def firma_ekle_fonk(self,Event):
         self.firma_ismi = self.firma_adi.get()
+        if str(self.firma_ismi + "\n") not in self.firmalar:        
         
-        
-        
-        def firma_ilkleme():
-            pgs=open("hesap_dosyalari/pos_gun_sonu.csv","a")
-            yo=open("hesap_dosyalari/yapilacak_odeme.csv","a")
-            ka=open("hesap_dosyalari/kasadan_alinan.csv","a")
-            ko=open("hesap_dosyalari/kasadan_odeme.csv","a")
-            kdo=open("hesap_dosyalari/kasadisi_odeme.csv","a")
-            g=open("hesap_dosyalari/gider.csv","a")
-            ol=open("hesap_dosyalari/odeme_al.csv","a")
-            ad = open("hesap_dosyalari/alinacak_odeme.csv","a")
+            def firma_ilkleme():
+                pgs=open("hesap_dosyalari/pos_gun_sonu.csv","a")
+                yo=open("hesap_dosyalari/yapilacak_odeme.csv","a")
+                ka=open("hesap_dosyalari/kasadan_alinan.csv","a")
+                ko=open("hesap_dosyalari/kasadan_odeme.csv","a")
+                kdo=open("hesap_dosyalari/kasadisi_odeme.csv","a")
+                g=open("hesap_dosyalari/gider.csv","a")
+                ol=open("hesap_dosyalari/odeme_al.csv","a")
+                ad = open("hesap_dosyalari/alinacak_odeme.csv","a")
 
-            miktar = 0.0
-            firma = self.firma_ismi
+                miktar = 0.0
+                firma = self.firma_ismi
 
-            sonuc = str(tarih+","+str(miktar)+",")
-            pgs.write(sonuc)
-            pgs.write(firma+"\n")
-            pgs.close()
+                sonuc = str(tarih+","+str(miktar)+",")
+                pgs.write(sonuc)
+                pgs.write(firma+"\n")
+                pgs.close()
 
-            yo.write(sonuc)
-            yo.write(firma+"\n")
-            yo.close()
+                yo.write(sonuc)
+                yo.write(firma+"\n")
+                yo.close()
 
-            ka.write(sonuc)
-            ka.write(firma+"\n")
-            ka.close()
+                ka.write(sonuc)
+                ka.write(firma+"\n")
+                ka.close()
 
-            ko.write(sonuc)
-            ko.write(firma+"\n")
-            ko.close()
+                ko.write(sonuc)
+                ko.write(firma+"\n")
+                ko.close()
+                
+                kdo.write(sonuc)
+                kdo.write(firma+"\n")
+                kdo.close()
+
+                g.write(sonuc)
+                g.write(firma+"\n")
+                g.close()
+
+                ol.write(sonuc)
+                ol.write(firma+"\n")
+                ol.close()
+
+                ad.write(sonuc)
+                ad.write(firma+"\n")
+                ad.close()
             
-            kdo.write(sonuc)
-            kdo.write(firma+"\n")
-            kdo.close()
+            firma_ilkleme()
 
-            g.write(sonuc)
-            g.write(firma+"\n")
-            g.close()
-
-            ol.write(sonuc)
-            ol.write(firma+"\n")
-            ol.close()
-
-            ad.write(sonuc)
-            ad.write(firma+"\n")
-            ad.close()
-        
-        firma_ilkleme()
-
-        if self.firma_ismi == "":
-            pass
+            if self.firma_ismi == "":
+                pass
+            else:
+                firmalar_yaz = open("firmalar.csv", "r")
+                firmalarım = firmalar_yaz.readlines()
+                firmalarım.insert(0,self.firma_ismi+"\n")
+                firmalar_yaz.close()
+                firmalar_yaz = open("firmalar.csv", "w")
+                firmalar_yaz.writelines(firmalarım)
+                firmalar_yaz.close()
+                
+                messagebox.showinfo(title="Firma Başarıyla Eklendi...", message="Programı Yeniden Başlattıktan Sonra Firmayla İlgili İşlem Yapabilirsiniz!")
         else:
-            firmalar_yaz = open("firmalar.csv", "r")
-            firmalarım = firmalar_yaz.readlines()
-            firmalarım.insert(0,self.firma_ismi+"\n")
-            firmalar_yaz.close()
-            firmalar_yaz = open("firmalar.csv", "w")
-            firmalar_yaz.writelines(firmalarım)
-            firmalar_yaz.close()
-            
-            messagebox.showinfo(title="Firma Başarıyla Eklendi...", message="Programı Yeniden Başlattıktan Sonra Firmayla İlgili İşlem Yapabilirsiniz!")
-
+            messagebox.showwarning("UYARI!","Firma Zaten Mevcut. Yeniden Ekleyemezsiniz.")
     def hesap_fonk_pen(self, Event):
         hesap_fon_penceresi = Tk()
         hesap_fon_penceresi.geometry("300x400")
@@ -454,7 +454,7 @@ class giris_pen():
         alinacak_odeme_toplam = 0
         try:
             if bas_gun == "": #tarih olmadığı durumda
-                baslangic_tarihi = datetime.datetime.strptime("22/02/19", "%d/%m/%y")
+                baslangic_tarihi = datetime.datetime.strptime("23/02/19", "%d/%m/%y")
                 bitis_tarihi = datetime.datetime.today()
                 #bitis_tarihi =  datetime.datetime.strptime(str(bitis_tarihim), "%y/%m/%d")
                 gun_araligi = str(bitis_tarihi-baslangic_tarihi)
