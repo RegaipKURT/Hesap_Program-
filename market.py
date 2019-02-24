@@ -565,11 +565,11 @@ class giris_pen():
                     ayirma_cizgisi = Label(pencere,text="-------------------------------------------------------------------------------------------------------------")
                     ayirma_cizgisi.place(y=160)
 
-                    toplam_ciro = kasadan_alinan_toplam + kasadan_odeme_toplam + pos_gun_sonu_toplam - (pos_gun_sonu_toplam*0.0245)
+                    toplam_ciro = kasadan_alinan_toplam + kasadan_odeme_toplam + pos_gun_sonu_toplam - (pos_gun_sonu_toplam*0.0245) + alinan_odeme_toplam
                     toplam_odeme = kasadan_odeme_toplam + kasadisi_odeme_toplam
                     kasa_brut = (toplam_ciro - toplam_odeme)
                     kasa_net = kasa_brut - gider_toplam
-                    pos_kaybı = (pos_gun_sonu_toplam*0.0245)
+                    pos_kaybı = pos_gun_sonu_toplam*0.0245
 
                     ciro = Label(pencere,text="Toplam Ciro:")
                     ciro_sonucu = Label(pencere,text=float(toplam_ciro))
@@ -803,21 +803,9 @@ class giris_pen():
                     gecici_alinan_odeme.close()
                     gecici_alinacak_odeme.close()
                     #BURADA VERİNİN İÇİNDEKİ BİR KOLONDAN TOPLAMLARI ALDIK VE YAZDIRDIK.
-                    
-                    try:
-                        yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
-                        toplam_tam = 0
-                        miktarlar = yazimiz.iloc[:,2:3].values
-                        for i in miktarlar:
-                            toplam_tam = float(toplam_tam) + float(i)
-                        
-                        top_lab = Label(pencere, text="Toplam:")
-                        topl_lab_son = Label(pencere, text=float(format(toplam_tam, ".2f")))
-                        top_lab.place(x=10,y=480)
-                        topl_lab_son.place(x=70, y=480)
 
-                    except pd.errors.EmptyDataError:
-                        pass
+                    yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
+                    
                     
                     try:
                         kasadan_odenen = pd.read_csv("hesap_dosyalari/gecici_kasadan_odeme.csv",header=None,encoding = "ISO-8859-1")
@@ -863,7 +851,16 @@ class giris_pen():
 
                     except pd.errors.EmptyDataError:
                         pass
+                    
+                    try:
+                        top_lab = Label(pencere, text="Toplam Ödeme:")
+                        topl_lab_son = Label(pencere, text=float(format(toplam_kas_od+toplam_kasadisi_od, ".2f")))
+                        top_lab.place(x=10,y=480)
+                        topl_lab_son.place(x=130, y=480)
 
+                    except pd.errors.EmptyDataError:
+                        pass
+                    
                     try:
                         yapilacak_od = pd.read_csv("hesap_dosyalari/gecici_yapilacak_odeme.csv",header=None,encoding = "ISO-8859-1")
                         toplam_yapilacak_od = 0
@@ -986,6 +983,7 @@ class giris_pen():
                     b = gun_araligi.index("d")
                     gun_araligi = gun_araligi[:b]
                     gun_araligi = int(gun_araligi)
+                    ay_araligi = float(gun_araligi/30)
                     
                     #buradan sonra hesaplamaları yap
                     sonuc_dosyasi = open("hesap_dosyalari/gecici_sonuc_dosyasi.csv","w")
@@ -1091,9 +1089,11 @@ class giris_pen():
 
                         pencere = Tk()
                         pencere.title("Göster")
-                        pencere.geometry("670x600")
+                        pencere.geometry("1060x600")
                         label_tepe = Label(pencere,text=str(str(gun_araligi) + " günlük sonuçlar gösteriliyor..."),bg="black",fg="red")
                         label_tepe.pack(fill=X)
+
+                        
                         
                         try:
                             toplamim = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
@@ -1101,18 +1101,18 @@ class giris_pen():
                             mask = (toplamim[1] >= baslangic_tarihi1) & (toplamim[1] <= bitis_tarihi1)
                             toplamim = toplamim.loc[mask]
                             toplam_tam = 0
-                            miktarlar = toplamim.iloc[:,2:3].values
+                            miktarlar = toplamim.iloc[:,1:2].values
                             for i in miktarlar:
                                 toplam_tam = float(toplam_tam) + float(i)
-                            
+                            """
                             top_lab = Label(pencere, text="Toplam:")
                             topl_lab_son = Label(pencere, text=int(toplam_tam))
                             top_lab.place(x=10,y=480)
                             topl_lab_son.place(x=70, y=480)
-
+                            """
                         except pd.errors.EmptyDataError:
                             pass
-
+                        
                         try:
                             kasadan_odenen = pd.read_csv("hesap_dosyalari/gecici_kasadan_odeme.csv",header=None,encoding = "ISO-8859-1")
                             kasadan_odenen[0] = pd.to_datetime(kasadan_odenen[0])
@@ -1122,12 +1122,12 @@ class giris_pen():
                             miktarlar1 = kasadan_odenen.iloc[:,1:2].values
                             for i in miktarlar1:
                                 toplam_kas_od = float(toplam_kas_od) + float(i)
-
+                            """
                             top_kas_od_lab = Label(pencere, text="Kasadan Ödeme:")
                             topl_kas_od_lab_son = Label(pencere, text=int(toplam_kas_od))
                             top_kas_od_lab.place(x=220,y=480)
                             topl_kas_od_lab_son.place(x=335, y=480)
-
+                            """
                         except pd.errors.EmptyDataError:
                             pass
 
@@ -1140,12 +1140,12 @@ class giris_pen():
                             miktarlar2 = kasadan_alinan.iloc[:,1:2].values
                             for i in miktarlar2:
                                 toplam_kas_al = float(toplam_kas_al) + float(i)
-
+                            """
                             top_kas_al_lab = Label(pencere, text="Kasadan Alınan:")
                             topl_kas_al_lab_son = Label(pencere, text=int(toplam_kas_al))
                             top_kas_al_lab.place(x=430,y=480)
                             topl_kas_al_lab_son.place(x=550, y=480)
-
+                            """
                         except pd.errors.EmptyDataError:
                             pass
 
@@ -1158,12 +1158,12 @@ class giris_pen():
                             miktarlar3 = kasadisi_odenen.iloc[:,1:2].values
                             for i in miktarlar3:
                                 toplam_kasadisi_od = float(toplam_kasadisi_od) + float(i)
-
+                            """
                             top_kasadisi_od_lab = Label(pencere, text="Kasa Dışı Ödeme:")
                             topl_kasadisi_od_lab_son = Label(pencere, text=int(toplam_kasadisi_od))
                             top_kasadisi_od_lab.place(x=10,y=520)
                             topl_kasadisi_od_lab_son.place(x=130, y=520)
-
+                            """
                         except pd.errors.EmptyDataError:
                             pass
 
@@ -1176,12 +1176,12 @@ class giris_pen():
                             miktarlar4 = yapilacak_od.iloc[:,1:2].values
                             for i in miktarlar4:
                                 toplam_yapilacak_od = float(toplam_yapilacak_od) + float(i)
-
+                            """
                             top_yap_od_lab = Label(pencere, text="Yapılacak Ödeme:")
                             topl_yap_od_lab_son = Label(pencere, text=int(toplam_yapilacak_od))
                             top_yap_od_lab.place(x=220,y=520)
                             topl_yap_od_lab_son.place(x=340, y=520)
-
+                            """
                         except pd.errors.EmptyDataError:
                             pass
 
@@ -1194,12 +1194,12 @@ class giris_pen():
                             miktarlar5 = gid.iloc[:,1:2].values
                             for i in miktarlar5:
                                 toplam_gid = float(toplam_gid) + float(i)
-                            
+                            """
                             top_gid_lab = Label(pencere, text="Gider:")
                             topl_gid_son = Label(pencere, text=int(toplam_gid))
                             top_gid_lab.place(x=430,y=520)
                             topl_gid_son.place(x=475, y=520)
-
+                            """
                         except pd.errors.EmptyDataError:
                             pass
                         
@@ -1212,12 +1212,12 @@ class giris_pen():
                             miktarlar6 = al_od.iloc[:,1:2].values
                             for i in miktarlar6:
                                 toplam_al_od = float(toplam_al_od) + float(i)
-
+                            """
                             top_al_od_lab = Label(pencere, text="Alınan Ödeme:")
                             topl_al_od_lab_son = Label(pencere, text=int(toplam_al_od))
                             top_al_od_lab.place(x=10,y=560)
                             topl_al_od_lab_son.place(x=130, y=560)
-
+                            """
                         except pd.errors.EmptyDataError:
                             pass
 
@@ -1230,12 +1230,30 @@ class giris_pen():
                             miktarlar7 = alin_od.iloc[:,1:2].values
                             for i in miktarlar7:
                                 toplam_alin_od = float(toplam_alin_od) + float(i)
-
+                            """
                             top_alin_od_lab = Label(pencere, text="Alınacak Ödeme:")
                             topl_alin_od_lab_son = Label(pencere, text=int(toplam_alin_od))
                             top_alin_od_lab.place(x=220,y=560)
                             topl_alin_od_lab_son.place(x=340, y=560)
+                            """
+                        except pd.errors.EmptyDataError:
+                            pass
 
+                        try:
+                            pos_gun_sonu = pd.read_csv("hesap_dosyalari/gecici_pos_gun_sonu.csv",header=None,encoding = "ISO-8859-1")
+                            pos_gun_sonu[0] = pd.to_datetime(pos_gun_sonu[0])
+                            mask = (pos_gun_sonu[0] >= baslangic_tarihi1) & (pos_gun_sonu[0] <= bitis_tarihi1)
+                            pos_gun_sonu = pos_gun_sonu.loc[mask]
+                            pos_gun_sonu_toplam = 0
+                            miktarlar11 = pos_gun_sonu.iloc[:,1:2].values
+                            for i in miktarlar11:
+                                pos_gun_sonu_toplam = float(pos_gun_sonu_toplam) + float(i)
+                            """
+                            top_lab = Label(pencere, text="Toplam:")
+                            topl_lab_son = Label(pencere, text=int(toplam_tam))
+                            top_lab.place(x=10,y=480)
+                            topl_lab_son.place(x=70, y=480)
+                            """
                         except pd.errors.EmptyDataError:
                             pass
 
@@ -1254,32 +1272,152 @@ class giris_pen():
 
                         except pd.errors.EmptyDataError:
                             pass
+                        label_yapod = Label(pencere, text="\nYapılacak Ödeme Toplam:")
+                        label_yapod_sonuc = Label(pencere, text=format(float(toplam_yapilacak_od),".2f"))
+                        label_yapod.place(x=20, y=40)
+                        label_yapod_sonuc.place(x=200, y=57)
+                        label_kasod = Label(pencere, text="\nKasadan Ödenen Toplam:")
+                        label_kasod_sonuc = Label(pencere, text=format(float(toplam_kas_od),".2f"))
+                        label_kasod.place(x=20, y=80)
+                        label_kasod_sonuc.place(x=200, y=97)
+                        label_kasdis = Label(pencere, text="\nKasa Dışı Ödeme Toplam:")
+                        label_kasdis_sonuc = Label(pencere, text=format(float(toplam_kasadisi_od),".2f"))
+                        label_kasdis.place(x=20, y=120)
+                        label_kasdis_sonuc.place(x=200, y=137)
+                        label_gid = Label(pencere, text="\nGider Toplam:")
+                        label_gid_sonuc = Label(pencere, text=format(float(toplam_gid),".2f"))
+                        label_gid.place(x=300, y=40)
+                        label_gid_sonuc.place(x=470, y=57)
+                        label_kas_al = Label(pencere, text="\nKasadan Alınan Toplam:")
+                        label_kas_al_sonuc = Label(pencere, text=format(float(toplam_kas_al),".2f"))
+                        label_kas_al.place(x=300, y=80)
+                        label_kas_al_sonuc.place(x=470, y=97)
+                        label_pos = Label(pencere, text="\nPos Gün Sonu Toplam:")
+                        label_pos_sonuc = Label(pencere, text=format(float(pos_gun_sonu_toplam),".2f"))
+                        label_pos.place(x=300, y=120)
+                        label_pos_sonuc.place(x=470, y=137)
+                        
+                        ayirma_cizgisi = Label(pencere,text="-------------------------------------------------------------------------------------------------------------")
+                        ayirma_cizgisi.place(y=160)
 
+                        toplam_ciro = toplam_kas_al + toplam_kas_od + pos_gun_sonu_toplam - (pos_gun_sonu_toplam*0.0245) + toplam_al_od
+                        toplam_odeme = toplam_kas_od + toplam_kasadisi_od
+                        kasa_brut = (toplam_ciro - toplam_odeme)
+                        kasa_net = kasa_brut - toplam_gid
+                        pos_kaybı = pos_gun_sonu_toplam*0.0245
+
+                        ciro = Label(pencere,text="Toplam Ciro:")
+                        ciro_sonucu = Label(pencere,text=format(float(toplam_ciro),".2f"))
+                        ciro.place(x=20,y=190)
+                        ciro_sonucu.place(x=140,y=190)
+
+                        odeme = Label(pencere,text="Toplam Ödeme:")
+                        odeme_sonucu = Label(pencere,text=format(float(toplam_odeme),".2f"))
+                        odeme.place(x=20,y=230)
+                        odeme_sonucu.place(x=140,y=230)
+
+                        kasa_br = Label(pencere,text="Kasa Brüt:")
+                        kasa_br_sonucu = Label(pencere,text=format(float(kasa_brut),".2f"))
+                        kasa_br.place(x=300,y=190)
+                        kasa_br_sonucu.place(x=400,y=190)
+
+                        kasa_n = Label(pencere,text="Kasa Net:")
+                        kasa_n_sonucu = Label(pencere,text=format(float(kasa_net),".2f"))
+                        kasa_n.place(x=300,y=230)
+                        kasa_n_sonucu.place(x=400,y=230)
+
+                        pos_k = Label(pencere,text="POS Kaybı:")
+                        pos_k_sonucu = Label(pencere,text=format(float(pos_kaybı),".2f"))
+                        pos_k.place(x=20,y=270)
+                        pos_k_sonucu.place(x=140,y=270)
+
+                        al_od = Label(pencere,text="Alınan Ödeme:")
+                        al_od_sonucu = Label(pencere,text=format(float(alinan_odeme_toplam),".2f"))
+                        al_od.place(x=300,y=270)
+                        al_od_sonucu.place(x=400,y=270)
+
+                        ayirma_cizgisi2 = Label(pencere,text="-------------------------------------------------------------------------------------------------------------")
+                        ayirma_cizgisi2.place(y=293)
+
+                        aylik = Label(pencere, text="AYLIK ORTALAMA")
+                        gunluk = Label(pencere, text="GUNLUK ORTALAMA")
+                        gunluk.place(x=140,y=320)
+                        aylik.place(x=400,y=320)
+                        
+                        ciro = Label(pencere,text="Ciro:")
+                        ciro_sonucu_gunluk = Label(pencere,text=str(format(float(toplam_ciro/gun_araligi), ".2f")))
+                        ciro_sonucu_aylik = Label(pencere,text=str(format(float(toplam_ciro/ay_araligi), ".2f")))
+                        ciro.place(x=20,y=350)
+                        ciro_sonucu_gunluk.place(x=140,y=350)
+                        ciro_sonucu_aylik.place(x=400,y=350)
+
+                        odeme = Label(pencere,text="Ödeme:")
+                        odeme_sonucu_gunluk = Label(pencere,text=str(format(float(toplam_odeme/gun_araligi), ".2f")))
+                        odeme_sonucu_aylik = Label(pencere,text=str(format(float(toplam_odeme/ay_araligi), ".2f")))
+                        odeme.place(x=20,y=380)
+                        odeme_sonucu_gunluk.place(x=140,y=380)
+                        odeme_sonucu_aylik.place(x=400,y=380)
+
+                        label_gid = Label(pencere, text="Gider:")
+                        label_gid_sonuc_gunluk = Label(pencere, text=str(format(float(gider_toplam/gun_araligi), ".2f")))
+                        label_gid_sonuc_aylik = Label(pencere, text=str(format(float(gider_toplam/ay_araligi), ".2f")))
+                        label_gid.place(x=20, y=410)
+                        label_gid_sonuc_gunluk.place(x=140, y=410)
+                        label_gid_sonuc_aylik.place(x=400, y=410)
+
+                        kasa_br = Label(pencere,text="Kasa Brüt:")
+                        kasa_br_sonucu_gunluk = Label(pencere,text=str(format(float(kasa_brut/gun_araligi), ".2f")))
+                        kasa_br_sonucu_aylik = Label(pencere,text=str(format(float(kasa_brut/ay_araligi), ".2f")))
+                        kasa_br.place(x=20,y=440)
+                        kasa_br_sonucu_gunluk.place(x=140,y=440)
+                        kasa_br_sonucu_aylik.place(x=400,y=440)
+
+                        kasa_n = Label(pencere,text="Kasa Net:")
+                        kasa_n_sonucu_gunluk = Label(pencere,text=str(format(float(kasa_net/gun_araligi), ".2f")))
+                        kasa_n_sonucu_aylik = Label(pencere,text=str(format(float(kasa_net/ay_araligi), ".2f")))
+                        kasa_n.place(x=20,y=470)
+                        kasa_n_sonucu_gunluk.place(x=140,y=470)
+                        kasa_n_sonucu_aylik.place(x=400,y=470)
+
+                        borc_alacak = (alinacak_odeme_toplam - alinan_odeme_toplam)
+
+                        if borc_alacak > 0:
+                            veresiye = Label(pencere,text="TOPLAM ALACAĞINIZ VAR:", bg ="red")
+                            veresiye_sonucu = Label(pencere,text=str(format(float(borc_alacak), ".2f")))
+                            veresiye.place(x=20,y=520)
+                            veresiye.place(x=140,y=520)
+                            veresiye_sonucu.place(x=400,y=520)
+                        else:
+                            veresiye = Label(pencere,text="ALACAĞINIZ YOK / BORÇ:", bg ="green")
+                            veresiye_sonucu = Label(pencere,text=str(format(float(borc_alacak), ".2f")))
+                            veresiye.place(x=20,y=520)
+                            veresiye.place(x=140,y=520)
+                            veresiye_sonucu.place(x=400,y=520)
                         def tarih_goreceli(Event):
                             yazi_yerimiz = Text(pencere, bg="black", fg="green")
                             #yazi_yerimiz.insert(INSERT, yazim)
                             yazi_yerimiz.insert(INSERT, yazimiz.sort_values(by=[1])) #1. kolona göre sıraladık
-                            yazi_yerimiz.place(x=5, y=60)
+                            yazi_yerimiz.place(x=600, y=60)
                             kaydir.config(command=yazi_yerimiz.yview)
                             
                         def miktar_goreceli(Event):
                             yazi_yerimiz = Text(pencere, bg="black", fg="green")
                             #yazi_yerimiz.insert(INSERT, yazim)
                             yazi_yerimiz.insert(INSERT, yazimiz.sort_values(by=[2])) #2. kolona göre sıraladık
-                            yazi_yerimiz.place(x=5, y=60)
+                            yazi_yerimiz.place(x=600, y=60)
                             kaydir.config(command=yazi_yerimiz.yview)
                         
                         tarihe_gore = Button(pencere, text="Tarihe Göre Sırala")
                         miktara_gore = Button(pencere, text="Miktara Göre Sırala")
                         tarihe_gore.bind("<Button-1>", tarih_goreceli)
                         miktara_gore.bind("<Button-1>", miktar_goreceli)
-                        tarihe_gore.place(x=150,y=30)
-                        miktara_gore.place(x=350, y=30)
+                        tarihe_gore.place(x=830,y=30)
+                        miktara_gore.place(x=650, y=30)
                             
                         yazi_yerimiz = Text(pencere, bg="black", fg="green")
                         #yazi_yerimiz.insert(INSERT, yazim)
                         yazi_yerimiz.insert(INSERT, yazimiz) 
-                        yazi_yerimiz.place(x=5, y=60)
+                        yazi_yerimiz.place(x=600, y=60)
 
                         kaydir = Scrollbar(pencere)
                         kaydir.pack(side=RIGHT, fill=Y)
@@ -1405,24 +1543,6 @@ class giris_pen():
                         label_tepe.pack(fill=X)
                         
                         try:
-                            toplamim = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
-                            toplamim[1] = pd.to_datetime(toplamim[1])
-                            mask = (toplamim[1] >= baslangic_tarihi1) & (toplamim[1] <= bitis_tarihi1)
-                            toplamim = toplamim.loc[mask]
-                            toplam_tam = 0
-                            miktarlar = toplamim.iloc[:,2:3].values
-                            for i in miktarlar:
-                                toplam_tam = float(toplam_tam) + float(i)
-                            
-                            top_lab = Label(pencere, text="Toplam:")
-                            topl_lab_son = Label(pencere, text=int(toplam_tam))
-                            top_lab.place(x=10,y=480)
-                            topl_lab_son.place(x=70, y=480)
-
-                        except pd.errors.EmptyDataError:
-                            pass
-
-                        try:
                             kasadan_odenen = pd.read_csv("hesap_dosyalari/gecici_kasadan_odeme.csv",header=None,encoding = "ISO-8859-1")
                             kasadan_odenen[0] = pd.to_datetime(kasadan_odenen[0])
                             mask = (kasadan_odenen[0] >= baslangic_tarihi1) & (kasadan_odenen[0] <= bitis_tarihi1)
@@ -1476,6 +1596,17 @@ class giris_pen():
                         except pd.errors.EmptyDataError:
                             pass
 
+                        
+                        try:
+                            
+                            top_lab = Label(pencere, text="Toplam Ödeme:")
+                            topl_lab_son = Label(pencere, text=format(float(toplam_kasadisi_od + toplam_kas_od), ".2f"))
+                            top_lab.place(x=10,y=480)
+                            topl_lab_son.place(x=120, y=480)
+
+                        except pd.errors.EmptyDataError:
+                            pass
+                        
                         try:
                             yapilacak_od = pd.read_csv("hesap_dosyalari/gecici_yapilacak_odeme.csv",header=None,encoding = "ISO-8859-1")
                             yapilacak_od[0] = pd.to_datetime(yapilacak_od[0])
