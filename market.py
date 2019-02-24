@@ -179,28 +179,28 @@ class giris_pen():
             except ValueError:
                 messagebox.showwarning(title="UYARI!", message="Yanlış ya da Eksik Değer Girildi!")
 
-        pencere = Tk()
-        pencere.title("Hesap Programı")
-        pencere.geometry("300x400")
+        hesap_ek_pen = Toplevel()
+        hesap_ek_pen.title("Hesap Programı")
+        hesap_ek_pen.geometry("300x400")
         
-        odemetip = Label(pencere, text = "Ödeme Tipi Seçiniz...")
+        odemetip = Label(hesap_ek_pen, text = "Ödeme Tipi Seçiniz...")
         odemetip.place()
         odemetip.pack()
         
-        self.degis_odeme = StringVar(pencere)
+        self.degis_odeme = StringVar(hesap_ek_pen)
         self.degis_odeme.set("Seçiniz...")
-        secim_pano_odeme = OptionMenu(pencere, self.degis_odeme, *odeme_tipleri)
+        secim_pano_odeme = OptionMenu(hesap_ek_pen, self.degis_odeme, *odeme_tipleri)
         secim_pano_odeme.pack()
         
-        miktar = Label(pencere, text="Miktar")
+        miktar = Label(hesap_ek_pen, text="Miktar")
         miktar.pack()
-        self.miktar_deger = Entry(pencere)
+        self.miktar_deger = Entry(hesap_ek_pen)
         self.miktar_deger.pack()
         
-        firma_adi = Label(pencere, text="Firma Adı:")
+        firma_adi = Label(hesap_ek_pen, text="Firma Adı:")
         firma_adi.place(x=130,y=120)
 
-        arama = Label(pencere, text="Ara:")
+        arama = Label(hesap_ek_pen, text="Ara:")
         arama.place(x=10,y=120)
         def on_keyrelease(event):
             value = event.widget.get()
@@ -223,21 +223,21 @@ class giris_pen():
 
         test_list = self.firmalar
 
-        entry =Entry(pencere)
+        entry =Entry(hesap_ek_pen)
         entry.place(x=10,y=150)
         entry.bind('<KeyRelease>', on_keyrelease)
 
-        listbox = Combobox(pencere)
+        listbox = Combobox(hesap_ek_pen)
         listbox["values"] = test_list
         listbox.bind('<KeyRelease>', on_keyrelease)
         listbox.place(x=100,y=150)
         #listbox.bind('<Double-Button-1>', on_select)
-        buton = Button(pencere, text="Kaydet",bd=2)
+        buton = Button(hesap_ek_pen, text="Kaydet",bd=2)
         buton.place(x=10,y=10,relx=0.1,rely=0.2)
         buton.bind("<Button-1>", uyari)
         buton.pack(side=BOTTOM)
         
-        mainloop()
+        hesap_ek_pen.mainloop()
         
     def firma_ekle_pen(self, Event):
         firma_ekle_pencere = Tk()
@@ -459,7 +459,7 @@ class giris_pen():
                 if firma == "TÜMÜ": #tüm firmlar için
                     pencere = Tk()
                     pencere.title("Göster")
-                    pencere.geometry("1060x600")
+                    pencere.geometry("1200x600")
                     sonuc_labeli_tepe = Label(pencere,text="SONUCLAR:", bg="gray",fg="white")
                     sonuc_labeli_tepe.pack(fill=X)
                     
@@ -661,14 +661,14 @@ class giris_pen():
                     yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
                     
                     def tarih_goreceli(Event):
-                        yazi_yerimiz = Text(pencere, height=30, width=50, bg="black", fg="green")
+                        yazi_yerimiz = Text(pencere, height=30, width=80, bg="black", fg="green")
                         #yazi_yerimiz.insert(INSERT, yazim)
                         yazi_yerimiz.insert(INSERT, yazimiz.sort_values(by=[1])) #0. kolona göre sıraladık
                         yazi_yerimiz.place(x=600, y=60)
                         kaydir.config(command=yazi_yerimiz.yview)
                     
                     def miktar_goreceli(Event):
-                        yazi_yerimiz = Text(pencere, height=30, width=50, bg="black", fg="green")
+                        yazi_yerimiz = Text(pencere, height=30, width=80, bg="black", fg="green")
                         #yazi_yerimiz.insert(INSERT, yazim)
                         yazi_yerimiz.insert(INSERT, yazimiz.sort_values(by=[2])) #1. kolona göre sıraladık
                         yazi_yerimiz.place(x=600, y=60)
@@ -681,7 +681,7 @@ class giris_pen():
                     tarihe_gore.place(x=830,y=30)
                     miktara_gore.place(x=650, y=30)
                     
-                    yazi_yerimiz = Text(pencere, height=30, width=50, bg="black", fg="green")
+                    yazi_yerimiz = Text(pencere, height=30, width=80, bg="black", fg="green")
                     #yazi_yerimiz.insert(INSERT, yazim)
                     yazi_yerimiz.insert(INSERT, yazimiz) #0. kolona göre sıraladık
                     yazi_yerimiz.place(x=600, y=60)
@@ -1088,7 +1088,7 @@ class giris_pen():
 
                         pencere = Tk()
                         pencere.title("Göster")
-                        pencere.geometry("1060x600")
+                        pencere.geometry("1200x600")
                         label_tepe = Label(pencere,text=str(str(gun_araligi) + " günlük sonuçlar gösteriliyor..."),bg="black",fg="red")
                         label_tepe.pack(fill=X)
 
