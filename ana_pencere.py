@@ -21,8 +21,7 @@ class giris_pen():
         altmenu = Menu(menu)
         menu.add_cascade(label="File", menu=altmenu)
 
-        altmenu.add_command(label="New")
-        altmenu.add_command(label="Save")
+        altmenu.add_command(label="Kaydet", command=kayit)
 
         altmenu.add_separator()
         altmenu.add_command(label="Exit", command=quit)
@@ -1691,6 +1690,9 @@ def firma_silme():
     hesaplar.firma_sil(pen)
 
     pen.mainloop()
+
+def kayit():
+    messagebox.showwarning("UYARI!","Programı yeniden başlattıktan sonra kayıtlarınız güncellenecektir.")
 
 firmalar_oku = open("firmalar.csv", "r")
 pencere = Tk()

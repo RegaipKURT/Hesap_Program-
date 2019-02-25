@@ -9,7 +9,7 @@ class ayarpen():
 
     def __init__(self, master):
         pos_orani = format(float(open("hesap_dosyalari/pos_orani.txt","r").readlines()[0]),".4f")
-        self.formulasyon_tarif=str("\n\nToplam Ciro: \nKasadan Alınan + Alınan Ödeme + Kasadan Ödeme + Pos Gün Sonu - Pos Kaybı \n\nToplam Ödeme: \nKasadan Ödeme + Kasadışı Ödeme\n\nKasa Brut: \nToplam Ciro - Toplam Ödeme\n\nKasa Net: \nKasa Brut - Gider\n\nPos Kaybı: \nPos Gün Sonu* Pos Kesilme Oranı ==> (Oran:{0})".format(pos_orani))
+        self.formulasyon_tarif=str("\n\nToplam Ciro: \nKasadan Alınan + Alınan Ödeme + Kasadan Ödeme + Pos Gün Sonu - Pos Kaybı \n\nToplam Ödeme: \nKasadan Ödeme + Kasadışı Ödeme\n\nKasa Brut: \nToplam Ciro - Toplam Ödeme\n\nKasa Net: \nKasa Brut - Gider\n\nPos Kaybı: \nPos Gün Sonu* Pos Kesilme Oranı ==> (Oran:{0})\n\nAlınacak Ödeme: Firmaya veya kişiye borç yazar. (Hesaplamalara etki etmez.)\nÖdeme Al: Firmanın veya kişinin borcunu siler. (Hesaplara etki eder.)".format(pos_orani))
         self.tarif_label = Label(master, text= self.formulasyon_tarif)
         self.tarif_label.pack()
 
