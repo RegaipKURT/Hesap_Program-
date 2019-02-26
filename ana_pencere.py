@@ -842,6 +842,16 @@ class giris_pen():
                         pass
                     
                     try:
+                        karsilik_dos = pd.read_csv("hesap_dosyalari/gecici_karsilik_dosyasi.csv",header=None,encoding = "ISO-8859-1")
+                        toplam_karsilik = 0
+                        miktarlar0 = karsilik_dos.iloc[:,1:2].values
+                        for i in miktarlar0:
+                            toplam_karsilik = float(toplam_karsilik) + float(i)
+                    
+                    except pd.errors.EmptyDataError:
+                        pass
+
+                    try:
                         yapilacak_od = pd.read_csv("hesap_dosyalari/gecici_yapilacak_odeme.csv",header=None,encoding = "ISO-8859-1")
                         toplam_yapilacak_od = 0
                         miktarlar4 = yapilacak_od.iloc[:,1:2].values
@@ -849,7 +859,7 @@ class giris_pen():
                             toplam_yapilacak_od = float(toplam_yapilacak_od) + float(i)
 
                         top_yap_od_lab = Label(pencere, text="Yapılacak Ödeme:")
-                        topl_yap_od_lab_son = Label(pencere, text=float(format(toplam_yapilacak_od-(toplam_kas_od+toplam_kasadisi_od),".2f")))
+                        topl_yap_od_lab_son = Label(pencere, text=float(format(((toplam_yapilacak_od + toplam_karsilik)-(toplam_kas_od+toplam_kasadisi_od)),".2f")))
                         top_yap_od_lab.place(x=220,y=520)
                         topl_yap_od_lab_son.place(x=340, y=520)
 
@@ -894,7 +904,7 @@ class giris_pen():
                             toplam_alinacak_od = float(toplam_alinacak_od) + float(i)
 
                         top_alin_od_lab = Label(pencere, text="Alınacak Ödeme:")
-                        topl_alin_od_lab_son = Label(pencere, text=float(format(toplam_alinacak_od,".2f")))
+                        topl_alin_od_lab_son = Label(pencere, text=float(format((toplam_alinacak_od-toplam_al_od),".2f")))
                         top_alin_od_lab.place(x=220,y=560)
                         topl_alin_od_lab_son.place(x=340, y=560)
 
@@ -902,22 +912,15 @@ class giris_pen():
                         pass
 
                     try:
-                        karsilik_dos = pd.read_csv("hesap_dosyalari/gecici_karsilik_dosyasi.csv",header=None,encoding = "ISO-8859-1")
-                        toplam_karsilik = 0
-                        miktarlar0 = karsilik_dos.iloc[:,1:2].values
-                        for i in miktarlar0:
-                            toplam_karsilik = float(toplam_karsilik) + float(i)
-
                         sonucum = float(format((float((toplam_kas_od + toplam_kasadisi_od) - (toplam_yapilacak_od+toplam_karsilik))+((float(toplam_alinacak_od) - float(toplam_al_od))))))
                         if sonucum > 0:
-                            sonucum = -1 * sonucum
                             sonuc = Label(pencere, text="BORÇ YOK/Toplam Alacak:", fg="green")
                             sonuc_son = Label(pencere, fg="green", text=float(format(sonucum,".2f")))
                             sonuc.place(x=430,y=560)
                             sonuc_son.place(x=590, y=560)
                         else:
                             sonuc = Label(pencere, text="Alacak Yok/BORCUNUZ:", fg="red")
-                            sonuc_son = Label(pencere, fg="red", text=float(format(sonucum,".2f")))
+                            sonuc_son = Label(pencere, fg="red", text=float(format(-sonucum,".2f")))
                             sonuc.place(x=430,y=560)
                             sonuc_son.place(x=590, y=560)
 
