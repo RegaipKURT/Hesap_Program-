@@ -17,6 +17,7 @@ def ilkleme():
         gyo=open("hesap_dosyalari/gecici_yapilacak_odeme.csv","a")
         gol=open("hesap_dosyalari/gecici_odeme_al.csv","a")
         gad=open("hesap_dosyalari/gecici_alinacak_odeme.csv","a")
+        gkardos = open("hesap_dosyalari/gecici_karsilik_dosyasi.csv","a")
         pgs=open("hesap_dosyalari/pos_gun_sonu.csv","a")
         yo=open("hesap_dosyalari/yapilacak_odeme.csv","a")
         ka=open("hesap_dosyalari/kasadan_alinan.csv","a")
@@ -25,6 +26,7 @@ def ilkleme():
         g=open("hesap_dosyalari/gider.csv","a")
         ol=open("hesap_dosyalari/odeme_al.csv","a")
         ad = open("hesap_dosyalari/alinacak_odeme.csv","a")
+        kardos = open("hesap_dosyalari/karsilik_dosyasi.csv","a")
         bas_tar = open("hesap_dosyalari/bas_tar.csv","a")
 
         firma.close()
@@ -37,6 +39,7 @@ def ilkleme():
         gyo.close()
         gol.close()
         gad.close()
+        gkardos.close()
         pgs.close()
         yo.close()
         ka.close()
@@ -45,6 +48,7 @@ def ilkleme():
         g.close()
         ol.close()
         ad.close()
+        kardos.close()
         bas_tar.close
 
     try:
