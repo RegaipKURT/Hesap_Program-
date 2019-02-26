@@ -75,64 +75,62 @@ class giris_pen():
                     if firma != "":
                         if tip == "Gider":
                             file = open("hesap_dosyalari/gider.csv", "a")
-                            if firma == "ETT":
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma+"\n")
-                                file.close()
-                            else:
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma)
-                                file.close()
+                            sonuc = str(tarih+","+str(miktar)+",")
+                            file.write(sonuc)
+                            file.write(firma)
+                            file.close()
                         
                         elif tip == "Yapılacak Ödeme":
                             file = open("hesap_dosyalari/yapilacak_odeme.csv", "a")
-                            if firma == "ETT":
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma+"\n")
-                                file.close()
-                            else:
+                            sonuc = str(tarih+","+str(miktar)+",")
+                            file.write(sonuc)
+                            file.write(firma)
+                            file.close()
+                        
+                        elif tip == "Ödeme Al":
+                            file = open("hesap_dosyalari/odeme_al.csv", "a")
+                            sonuc = str(tarih+","+str(miktar)+",")
+                            file.write(sonuc)
+                            file.write(firma)
+                            file.close()
+
+                        elif tip == "Kasadan Yapılan Ödeme":
+                            self.answer = messagebox.askquestion(title="Seçim Yapınız", message="Borç İlişksisi Olacak mı?")
+                            if self.answer == "yes":
+                                file = open("hesap_dosyalari/kasadan_odeme.csv", "a")
                                 sonuc = str(tarih+","+str(miktar)+",")
                                 file.write(sonuc)
                                 file.write(firma)
                                 file.close()
-                        
-                        elif tip == "Ödeme Al":
-                            file = open("hesap_dosyalari/odeme_al.csv", "a")
-                            if firma == "ETT":
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma+"\n")
-                                file.close()
                             else:
+                                file = open("hesap_dosyalari/kasadan_odeme.csv", "a")
                                 sonuc = str(tarih+","+str(miktar)+",")
                                 file.write(sonuc)
                                 file.write(firma)
                                 file.close()
 
-                        elif tip == "Kasadan Yapılan Ödeme":
-                            file = open("hesap_dosyalari/kasadan_odeme.csv", "a")
-                            if firma == "ETT":
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma+"\n")
-                                file.close()
-                            else:
+                                file = open("hesap_dosyalari/yapilacak_odeme.csv", "a")
                                 sonuc = str(tarih+","+str(miktar)+",")
                                 file.write(sonuc)
                                 file.write(firma)
                                 file.close()
                         
                         elif tip == "Kasa Dışı Ödeme":
-                            file = open("hesap_dosyalari/kasadisi_odeme.csv", "a")
-                            if firma == "ETT":
+                            self.answer = messagebox.askquestion(title="Seçim Yapınız", message="Borç İlişksisi Olacak mı?")
+                            if self.answer == "yes":
+                                file = open("hesap_dosyalari/kasadisi_odeme.csv", "a")
                                 sonuc = str(tarih+","+str(miktar)+",")
                                 file.write(sonuc)
-                                file.write(firma+"\n")
+                                file.write(firma)
                                 file.close()
                             else:
+                                file = open("hesap_dosyalari/kasadisi_odeme.csv", "a")
+                                sonuc = str(tarih+","+str(miktar)+",")
+                                file.write(sonuc)
+                                file.write(firma)
+                                file.close()
+
+                                file = open("hesap_dosyalari/yapilacak_odeme.csv", "a")
                                 sonuc = str(tarih+","+str(miktar)+",")
                                 file.write(sonuc)
                                 file.write(firma)
@@ -140,42 +138,24 @@ class giris_pen():
                         
                         elif tip == "Kasadan Alınan Miktar":
                             file = open("hesap_dosyalari/kasadan_alinan.csv", "a")
-                            if firma == "ETT":
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma+"\n")
-                                file.close()
-                            else:
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma)
-                                file.close()
+                            sonuc = str(tarih+","+str(miktar)+",")
+                            file.write(sonuc)
+                            file.write(firma)
+                            file.close()
                         
                         elif tip == "POS Gün Sonu":
                             file = open("hesap_dosyalari/pos_gun_sonu.csv", "a")
-                            if firma == "ETT":
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma+"\n")
-                                file.close()
-                            else:
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma)
-                                file.close()
+                            sonuc = str(tarih+","+str(miktar)+",")
+                            file.write(sonuc)
+                            file.write(firma)
+                            file.close()
                         
                         elif tip == "Alınacak Ödeme":
                             file = open("hesap_dosyalari/alinacak_odeme.csv", "a")
-                            if firma == "ETT":
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma+"\n")
-                                file.close()
-                            else:
-                                sonuc = str(tarih+","+str(miktar)+",")
-                                file.write(sonuc)
-                                file.write(firma)
-                                file.close()
+                            sonuc = str(tarih+","+str(miktar)+",")
+                            file.write(sonuc)
+                            file.write(firma)
+                            file.close()
 
                         if tip != "Seçiniz...":
                             messagebox.showinfo("Sonuç","İşlem Başarılı!")
@@ -456,15 +436,20 @@ class giris_pen():
         alinan_odeme_toplam = 0
         alinacak_odeme_toplam = 0
         try:
+
             if bas_gun == "": #tarih olmadığı durumda
                 bitis_tarihi = datetime.datetime.today()
-                baslangic_tarihi = datetime.datetime.strptime("23/02/19", "%d/%m/%y")
+                baslangic_tarihi = datetime.datetime.strptime("26/02/19", "%d/%m/%y")
                 #bitis_tarihi =  datetime.datetime.strptime(str(bitis_tarihim), "%y/%m/%d")
-                gun_araligi = str(bitis_tarihi-baslangic_tarihi)
-                b = gun_araligi.index("d")
-                gun_araligi = gun_araligi[:b]
-                gun_araligi = int(gun_araligi)
-                ay_araligi = gun_araligi / 30
+                try:
+                    gun_araligi = str(bitis_tarihi-baslangic_tarihi)
+                    b = gun_araligi.index("d")
+                    gun_araligi = gun_araligi[:b]
+                    gun_araligi = int(gun_araligi) + 1
+                    ay_araligi = float(gun_araligi/30)
+                except ValueError:
+                    gun_araligi = 1
+                    ay_araligi = float(gun_araligi/30)
 
                 if firma == "TÜMÜ": #tüm firmlar için
                     pencere = Tk()
@@ -547,7 +532,7 @@ class giris_pen():
                     gecici_alinacak_odeme.close()
 
                     label_yapod = Label(pencere, text="\nYapılacak Ödeme Toplam:")
-                    label_yapod_sonuc = Label(pencere, text=float(yapilacak_odeme_toplam))
+                    label_yapod_sonuc = Label(pencere, text=float(yapilacak_odeme_toplam-(kasadan_odeme_toplam+kasadisi_odeme_toplam)))
                     label_yapod.place(x=20, y=40)
                     label_yapod_sonuc.place(x=200, y=57)
                     label_kasod = Label(pencere, text="\nKasadan Ödenen Toplam:")
@@ -558,10 +543,10 @@ class giris_pen():
                     label_kasdis_sonuc = Label(pencere, text=float(kasadisi_odeme_toplam))
                     label_kasdis.place(x=20, y=120)
                     label_kasdis_sonuc.place(x=200, y=137)
-                    label_gid = Label(pencere, text="\nGider Toplam:")
+                    label_gid = Label(pencere, text="Gider Toplam:")
                     label_gid_sonuc = Label(pencere, text=float(gider_toplam))
-                    label_gid.place(x=300, y=40)
-                    label_gid_sonuc.place(x=470, y=57)
+                    label_gid.place(x=300, y=190)
+                    label_gid_sonuc.place(x=400, y=190)
                     label_kas_al = Label(pencere, text="\nKasadan Alınan Toplam:")
                     label_kas_al_sonuc = Label(pencere, text=float(kasadan_alinan_toplam))
                     label_kas_al.place(x=300, y=80)
@@ -592,13 +577,13 @@ class giris_pen():
 
                     kasa_br = Label(pencere,text="Kasa Brüt:")
                     kasa_br_sonucu = Label(pencere,text=format(float(kasa_brut),".2f"))
-                    kasa_br.place(x=300,y=190)
-                    kasa_br_sonucu.place(x=400,y=190)
+                    kasa_br.place(x=300,y=230)
+                    kasa_br_sonucu.place(x=400,y=230)
 
                     kasa_n = Label(pencere,text="Kasa Net:")
                     kasa_n_sonucu = Label(pencere,text=format(float(kasa_net),".2f"))
-                    kasa_n.place(x=300,y=230)
-                    kasa_n_sonucu.place(x=400,y=230)
+                    kasa_n.place(x=300,y=270)
+                    kasa_n_sonucu.place(x=400,y=270)
 
                     pos_k = Label(pencere,text="POS Kaybı:")
                     pos_k_sonucu = Label(pencere,text=format(float(pos_kaybı),".2f"))
@@ -607,8 +592,8 @@ class giris_pen():
 
                     al_od = Label(pencere,text="Alınan Ödeme:")
                     al_od_sonucu = Label(pencere,text=format(float(alinan_odeme_toplam),".2f"))
-                    al_od.place(x=300,y=270)
-                    al_od_sonucu.place(x=400,y=270)
+                    al_od.place(x=300,y=57)
+                    al_od_sonucu.place(x=470,y=57)
 
                     ayirma_cizgisi2 = Label(pencere,text="-------------------------------------------------------------------------------------------------------------")
                     ayirma_cizgisi2.place(y=293)
@@ -653,7 +638,7 @@ class giris_pen():
                     kasa_n_sonucu_gunluk.place(x=140,y=470)
                     kasa_n_sonucu_aylik.place(x=400,y=470)
 
-                    borc_alacak = (alinacak_odeme_toplam - alinan_odeme_toplam)
+                    borc_alacak = (kasadan_odeme_toplam + kasadisi_odeme_toplam - yapilacak_odeme_toplam) + (alinacak_odeme_toplam - alinan_odeme_toplam)
 
                     if borc_alacak > 0:
                         veresiye = Label(pencere,text="TOPLAM ALACAĞINIZ VAR:", bg ="red")
@@ -707,8 +692,6 @@ class giris_pen():
                     pencere.geometry("670x600")
                     sonuc_labeli_tepe = Label(pencere,text="SONUCLAR:", bg="gray",fg="white")
                     sonuc_labeli_tepe.pack(fill=X)
-                    #firmaya göre arama stringi sadece ETT için
-                    firma_ara = firma + "\n"
 
                     #burada dosya işlemleri ile yapıyoruz...
                     yapilacak_odeme1 = open("hesap_dosyalari/yapilacak_odeme.csv", "r")
@@ -825,6 +808,7 @@ class giris_pen():
                     
                     try:
                         top_lab = Label(pencere, text="Toplam Ödeme:")
+                        toplam_odeme_tek = toplam_kas_od+toplam_kasadisi_od
                         topl_lab_son = Label(pencere, text=float(format(toplam_kas_od+toplam_kasadisi_od, ".2f")))
                         top_lab.place(x=10,y=480)
                         topl_lab_son.place(x=130, y=480)
@@ -840,7 +824,7 @@ class giris_pen():
                             toplam_yapilacak_od = float(toplam_yapilacak_od) + float(i)
 
                         top_yap_od_lab = Label(pencere, text="Yapılacak Ödeme:")
-                        topl_yap_od_lab_son = Label(pencere, text=float(format(toplam_yapilacak_od,".2f")))
+                        topl_yap_od_lab_son = Label(pencere, text=float(format(toplam_yapilacak_od-(toplam_kas_od+toplam_kasadisi_od),".2f")))
                         top_yap_od_lab.place(x=220,y=520)
                         topl_yap_od_lab_son.place(x=340, y=520)
 
@@ -893,17 +877,18 @@ class giris_pen():
                         pass
 
                     try:
-                        sonucum = float(format((float(toplam_alinacak_od) - float(toplam_al_od)), ".2f"))
+                        sonucum = float(format((float(toplam_kas_od + toplam_kasadisi_od - toplam_yapilacak_od)+((float(toplam_alinacak_od) - float(toplam_al_od))))))
                         if sonucum > 0:
-                            sonuc = Label(pencere, text="Toplam Alacak:", fg="red")
-                            sonuc_son = Label(pencere, fg="red", text=float(format(sonucum,".2f")))
-                            sonuc.place(x=430,y=560)
-                            sonuc_son.place(x=550, y=560)
-                        else:
-                            sonuc = Label(pencere, text="Alacağınız Yok:", fg="green")
+                            sonucum = -1 * sonucum
+                            sonuc = Label(pencere, text="BORÇ YOK/Toplam Alacak:", fg="green")
                             sonuc_son = Label(pencere, fg="green", text=float(format(sonucum,".2f")))
                             sonuc.place(x=430,y=560)
-                            sonuc_son.place(x=550, y=560)
+                            sonuc_son.place(x=590, y=560)
+                        else:
+                            sonuc = Label(pencere, text="Alacak Yok/BORCUNUZ:", fg="red")
+                            sonuc_son = Label(pencere, fg="red", text=float(format(sonucum,".2f")))
+                            sonuc.place(x=430,y=560)
+                            sonuc_son.place(x=590, y=560)
 
                     except pd.errors.EmptyDataError:
                         pass
@@ -949,13 +934,15 @@ class giris_pen():
 
                     baslangic_tarihi = datetime.datetime.strptime(baslangic, "%d/%m/%y")
                     bitis_tarihi = datetime.datetime.strptime(bitis, "%d/%m/%y")
-
-                    gun_araligi = str(bitis_tarihi-baslangic_tarihi)
-                    b = gun_araligi.index("d")
-                    gun_araligi = gun_araligi[:b]
-                    gun_araligi = int(gun_araligi)
-                    ay_araligi = float(gun_araligi/30)
-                    
+                    try:
+                        gun_araligi = str(bitis_tarihi-baslangic_tarihi)
+                        b = gun_araligi.index("d")
+                        gun_araligi = gun_araligi[:b]
+                        gun_araligi = int(gun_araligi) + 1
+                        ay_araligi = float(gun_araligi/30)
+                    except ValueError:
+                        gun_araligi = 1
+                        ay_araligi = float(gun_araligi/30)
                     #buradan sonra hesaplamaları yap
                     sonuc_dosyasi = open("hesap_dosyalari/gecici_sonuc_dosyasi.csv","w")
                     yapilacak_odeme = open("hesap_dosyalari/yapilacak_odeme.csv","r")
@@ -1227,10 +1214,12 @@ class giris_pen():
                             """
                         except pd.errors.EmptyDataError:
                             pass
-
+                        """
                         try:
-                            sonucum = toplam_alin_od - toplam_al_od
-                            if sonucum > 0:
+                            
+                            sonucum = ((toplam_kas_od + toplam_kasadisi_od) - toplam_yapilacak_od) + (toplam_alin_od - toplam_al_od)
+                            if sonucum < 0:
+                                sonucum = -1*sonucum
                                 sonuc = Label(pencere, text="Toplam Alacak:", fg="green")
                                 sonuc_son = Label(pencere, fg="green", text=float(format(sonucum,".2f")))
                                 sonuc.place(x=430,y=560)
@@ -1243,6 +1232,7 @@ class giris_pen():
 
                         except pd.errors.EmptyDataError:
                             pass
+                        """
                         label_yapod = Label(pencere, text="\nYapılacak Ödeme Toplam:")
                         label_yapod_sonuc = Label(pencere, text=format(float(toplam_yapilacak_od),".2f"))
                         label_yapod.place(x=20, y=40)
@@ -1255,10 +1245,10 @@ class giris_pen():
                         label_kasdis_sonuc = Label(pencere, text=format(float(toplam_kasadisi_od),".2f"))
                         label_kasdis.place(x=20, y=120)
                         label_kasdis_sonuc.place(x=200, y=137)
-                        label_gid = Label(pencere, text="\nGider Toplam:")
+                        label_gid = Label(pencere, text="Gider Toplam:")
                         label_gid_sonuc = Label(pencere, text=format(float(toplam_gid),".2f"))
-                        label_gid.place(x=300, y=40)
-                        label_gid_sonuc.place(x=470, y=57)
+                        label_gid.place(x=300, y=190)
+                        label_gid_sonuc.place(x=400, y=190)
                         label_kas_al = Label(pencere, text="\nKasadan Alınan Toplam:")
                         label_kas_al_sonuc = Label(pencere, text=format(float(toplam_kas_al),".2f"))
                         label_kas_al.place(x=300, y=80)
@@ -1289,13 +1279,13 @@ class giris_pen():
 
                         kasa_br = Label(pencere,text="Kasa Brüt:")
                         kasa_br_sonucu = Label(pencere,text=format(float(kasa_brut),".2f"))
-                        kasa_br.place(x=300,y=190)
-                        kasa_br_sonucu.place(x=400,y=190)
+                        kasa_br.place(x=300,y=230)
+                        kasa_br_sonucu.place(x=400,y=230)
 
                         kasa_n = Label(pencere,text="Kasa Net:")
                         kasa_n_sonucu = Label(pencere,text=format(float(kasa_net),".2f"))
-                        kasa_n.place(x=300,y=230)
-                        kasa_n_sonucu.place(x=400,y=230)
+                        kasa_n.place(x=300,y=270)
+                        kasa_n_sonucu.place(x=400,y=270)
 
                         pos_k = Label(pencere,text="POS Kaybı:")
                         pos_k_sonucu = Label(pencere,text=format(float(pos_kaybı),".2f"))
@@ -1304,8 +1294,8 @@ class giris_pen():
 
                         al_od = Label(pencere,text="Alınan Ödeme:")
                         al_od_sonucu = Label(pencere,text=format(float(alinan_odeme_toplam),".2f"))
-                        al_od.place(x=300,y=270)
-                        al_od_sonucu.place(x=400,y=270)
+                        al_od.place(x=300,y=57)
+                        al_od_sonucu.place(x=470,y=57)
 
                         ayirma_cizgisi2 = Label(pencere,text="-------------------------------------------------------------------------------------------------------------")
                         ayirma_cizgisi2.place(y=293)
@@ -1349,21 +1339,22 @@ class giris_pen():
                         kasa_n.place(x=20,y=470)
                         kasa_n_sonucu_gunluk.place(x=140,y=470)
                         kasa_n_sonucu_aylik.place(x=400,y=470)
-
+                        """
                         borc_alacak = (toplam_alin_od - toplam_al_od)
 
                         if borc_alacak > 0:
-                            veresiye = Label(pencere,text="TOPLAM ALACAĞINIZ VAR:", bg ="red")
+                            veresiye = Label(pencere,text="TOPLAM BORCUNUZ VAR:", bg ="red")
                             veresiye_sonucu = Label(pencere,text=str(format(float(borc_alacak), ".2f")))
                             veresiye.place(x=20,y=520)
                             veresiye.place(x=140,y=520)
                             veresiye_sonucu.place(x=400,y=520)
                         else:
-                            veresiye = Label(pencere,text="ALACAĞINIZ YOK / BORÇ:", bg ="green")
+                            veresiye = Label(pencere,text="TOPLAM ALACAĞINIZ ALACAĞINIZ VAR:", bg ="green")
                             veresiye_sonucu = Label(pencere,text=str(format(float(borc_alacak), ".2f")))
                             veresiye.place(x=20,y=520)
                             veresiye.place(x=140,y=520)
                             veresiye_sonucu.place(x=400,y=520)
+                        """
                         def tarih_goreceli(Event):
                             yazi_yerimiz = Text(pencere, bg="black", fg="green")
                             #yazi_yerimiz.insert(INSERT, yazim)
@@ -1612,21 +1603,20 @@ class giris_pen():
                             pass
                         
                         try:
-                            sonucum = toplam_alin_od - toplam_al_od
+                            sonucum = float(format((float(toplam_kas_od + toplam_kasadisi_od - toplam_yapilacak_od)+((float(toplam_alin_od) - float(toplam_al_od))))))
                             if sonucum > 0:
-                                sonuc = Label(pencere, text="Toplam Alacak:", fg="green")
+                                sonuc = Label(pencere, text="BORÇ YOK/Toplam Alacağınız:", fg="green")
                                 sonuc_son = Label(pencere, fg="green", text=float(format(sonucum,".2f")))
                                 sonuc.place(x=430,y=560)
-                                sonuc_son.place(x=550, y=560)
+                                sonuc_son.place(x=600, y=560)
                             else:
-                                sonuc = Label(pencere, text="Toplam Borç:", fg="red")
+                                sonuc = Label(pencere, text="Alacağınız Yok/BORÇ:", fg="red")
                                 sonuc_son = Label(pencere, fg="red", text=float(format(sonucum,".2f")))
                                 sonuc.place(x=430,y=560)
-                                sonuc_son.place(x=550, y=560)
-
+                                sonuc_son.place(x=570, y=560)
                         except pd.errors.EmptyDataError:
                             pass
-
+                        
                         def tarih_goreceli(Event):
                             yazi_yerimiz = Text(pencere, bg="black", fg="green")
                             #yazi_yerimiz.insert(INSERT, yazim)
@@ -1658,9 +1648,9 @@ class giris_pen():
                         yazi_yerimiz.config(yscrollcommand=kaydir.set)
                         kaydir.config(command=yazi_yerimiz.yview)
                 
-                except ValueError:
+                except ValueError: 
                     messagebox.showwarning(title = "UYARI", message="Tarih değeri yanlış ya da eksik girildi. Lütfen kontrol ediniz")
-                    
+                
         except UnboundLocalError:
             messagebox.showwarning(title="UYARI!", message="Sonuç Bulunamadı!")
 

@@ -39,7 +39,6 @@ class pos_pen():
 
 class firma_sil():
 
-
     def __init__(self,master):
         firma_adi = Label(master, text="Firma Adı:")
         firma_adi.place(x=130,y=20)
