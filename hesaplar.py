@@ -5,6 +5,7 @@ from tkinter import Entry
 from tkinter import Button, BOTTOM
 from tkinter.ttk import Combobox
 
+
 class ayarpen():
 
     def __init__(self, master):
@@ -94,4 +95,5 @@ class firma_sil():
                 firmalar_yaz.write(i)
         firmalar_yaz.close()
         messagebox.showwarning("İşlem Tamamlandı!","Firma Başarıyla Silindi.\nProgramı Yeniden Başlatın!")
+
 

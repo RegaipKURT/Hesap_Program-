@@ -58,8 +58,10 @@ def ilkleme():
         version = platform.architecture()
         if version[0] == "64bit":
             os.system("pip install pandas-0.24.0-cp36-cp36m-win_amd64.whl")
+            os.system("pip install seaborn")
         elif version[0] == "32bit":
             os.system("pip install pandas-0.24.0-cp36-cp36m-win32.whl")
+            os.system("pip install seaborn")
         else:
             pass
         pos_or = open("hesap_dosyalari/pos_orani.txt","a")

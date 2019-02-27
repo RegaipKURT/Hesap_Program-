@@ -4,7 +4,6 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 import datetime
 import pandas as pd
-import hesaplar
 
 odeme_tipleri = ["Yapılacak Ödeme", "Kasadan Yapılan Ödeme", "Kasa Dışı Ödeme","Kasadan Alınan Miktar", "POS Gün Sonu", "Gider", "Ödeme Al", "Alınacak Ödeme"]
 odeme_tipleri.sort()
@@ -22,6 +21,7 @@ class giris_pen():
         menu.add_cascade(label="File", menu=altmenu)
 
         altmenu.add_command(label="Kaydet", command=kayit)
+        altmenu.add_command(label="Veri Görselleştirme", command=gorsellestir)
 
         altmenu.add_separator()
         altmenu.add_command(label="Exit", command=quit)
@@ -506,15 +506,15 @@ class giris_pen():
 
 
                     for i in yapilacak_odeme1:
-                        hepsi = "Yapılacak Ödeme, " + str(i)
+                        hepsi = "Yapilacak Odeme, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_yapilacak_odeme.write(i)
                     for i in kasadan_odeme1:
-                        hepsi = "Kasadan Ödeme, " + str(i)
+                        hepsi = "Kasadan Odeme, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_kasadan_odeme.write(i)
                     for i in kasadisi_odeme1:
-                        hepsi = "Kasa Dışı Ödeme, " + str(i)
+                        hepsi = "Kasa Disi Odeme, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_kasadisi_odeme.write(i)
                     for i in gider1:
@@ -522,19 +522,19 @@ class giris_pen():
                         sonuc_dosyası.write(hepsi)
                         gecici_gider.write(i)
                     for i in kasadan_alinan1:
-                        hepsi = "Kasadan Alınan, " + str(i)
+                        hepsi = "Kasadan Alinan, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_kasadan_alinan.write(i)
                     for i in alinan_odeme1:
-                        hepsi = "Alınan Ödeme, " + str(i)
+                        hepsi = "Alinan Odeme, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_alinan_odeme.write(i)
                     for i in alinacak_odeme1:
-                        hepsi = "Alınacak Ödeme, " + str(i)
+                        hepsi = "Alinacak Odeme, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_alinacak_odeme.write(i)
                     for i in kardos1:
-                        hepsi = "Ödeme Karşılıgı, " + str(i)
+                        hepsi = "Odeme Karsiligi, " + str(i)
                         sonuc_dosyası.write(hepsi)
                         gecici_alinacak_odeme.write(i)
                     
@@ -550,7 +550,7 @@ class giris_pen():
                     gecici_karsilik.close()
 
                     label_yapod = Label(pencere, text="\nYapılacak Ödeme Toplam:")
-                    label_yapod_sonuc = Label(pencere, text=float(yapilacak_odeme_toplam+karsilik_toplam)-(kasadan_odeme_toplam+kasadisi_odeme_toplam))
+                    label_yapod_sonuc = Label(pencere, text=format(float((yapilacak_odeme_toplam+karsilik_toplam)-(kasadan_odeme_toplam+kasadisi_odeme_toplam)), ".2f"))
                     label_yapod.place(x=20, y=40)
                     label_yapod_sonuc.place(x=200, y=57)
                     label_kasod = Label(pencere, text="\nKasadan Ödenen Toplam:")
@@ -734,22 +734,22 @@ class giris_pen():
 
                     for i in yapilacak_odeme1:
                         if i.endswith(firma):
-                            hepsi = "Yapılacak Ödeme, " + str(i)
+                            hepsi = "Yapilacak Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_yapilacak_odeme.write(i)
                     for i in alinacak_odeme1:
                         if i.endswith(firma):
-                            hepsi = "Alınacak Ödeme, " + str(i)
+                            hepsi = "Alinacak Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_alinacak_odeme.write(i)
                     for i in kasadan_odeme1:
                         if i.endswith(firma):
-                            hepsi = "Kasadan Ödeme, " + str(i)
+                            hepsi = "Kasadan Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_kasadan_odeme.write(i)
                     for i in kasadisi_odeme1:
                         if i.endswith(firma):
-                            hepsi = "Kasa Dışı Ödeme, " + str(i)
+                            hepsi = "Kasa Disi Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_kasadisi_odeme.write(i)
                     for i in gider1:
@@ -759,17 +759,17 @@ class giris_pen():
                             gecici_gider.write(i)
                     for i in kasadan_alinan1:
                         if i.endswith(firma):
-                            hepsi = "Kasadan Alınan, " + str(i)
+                            hepsi = "Kasadan Alinan, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_kasadan_alinan.write(i)
                     for i in alinan_odeme1:
                         if i.endswith(firma):
-                            hepsi = "Alınan Ödeme, " + str(i)
+                            hepsi = "Alinan Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_alinan_odeme.write(i)
                     for i in kardos1:
                         if i.endswith(firma):
-                            hepsi = "Ödeme Karşılıgı, " + str(i)
+                            hepsi = "Odeme Karsiligi, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_kardos.write(i)
                     sonuc_dosyası.close()
@@ -1003,7 +1003,7 @@ class giris_pen():
                             if i.startswith("tarih"):
                                 pass
                             else:
-                                yaz = "Yapilacak Ödeme," + i
+                                yaz = "Yapilacak Odeme," + i
                                 sonuc_dosyasi.write(yaz)
                                 gecici_yapilacak_odeme.write(i)
                         
@@ -1011,7 +1011,7 @@ class giris_pen():
                             if i.startswith("tarih"):
                                 pass
                             else:
-                                yaz = "Alinan Ödeme," + i
+                                yaz = "Alinan Odeme," + i
                                 sonuc_dosyasi.write(yaz)
                                 gecici_alinan_odeme.write(i)
                         
@@ -1019,7 +1019,7 @@ class giris_pen():
                             if i.startswith("tarih"):
                                 pass
                             else:
-                                yaz = "Alinacak Ödeme," + i
+                                yaz = "Alinacak Odeme," + i
                                 sonuc_dosyasi.write(yaz)
                                 gecici_alinacak_odeme.write(i)
 
@@ -1027,7 +1027,7 @@ class giris_pen():
                             if i.startswith("tarih"):
                                 pass
                             else:
-                                yaz = "Kasadan Ödeme," + i 
+                                yaz = "Kasadan Odeme," + i 
                                 sonuc_dosyasi.write(yaz)
                                 gecici_kasadan_odeme.write(i)
 
@@ -1035,7 +1035,7 @@ class giris_pen():
                             if i.startswith("tarih"):
                                 pass
                             else:
-                                yaz = "Kasa Dışı Ödeme," + i
+                                yaz = "Kasa Disi Odeme," + i
                                 sonuc_dosyasi.write(yaz)
                                 gecici_kasadisi_odeme.write(i)
 
@@ -1051,7 +1051,7 @@ class giris_pen():
                             if i.startswith("tarih"):
                                 pass
                             else:
-                                yaz = "Kasadan Alınan," + i
+                                yaz = "Kasadan Alinan," + i
                                 sonuc_dosyasi.write(yaz)
                                 gecici_kasadan_alinan.write(i)
                         
@@ -1059,7 +1059,7 @@ class giris_pen():
                             if i.startswith("tarih"):
                                 pass
                             else:
-                                yaz = "POS Gün Sonu," + i
+                                yaz = "POS Gun Sonu," + i
                                 sonuc_dosyasi.write(yaz)
                                 gecici_pos_gun_sonu.write(i)
                         
@@ -1689,16 +1689,19 @@ class giris_pen():
             messagebox.showwarning(title="UYARI!", message="Sonuç Bulunamadı!")
 
 def ayar_goster():
-        
-        ayar_pencere = Toplevel()
-        ayar_pencere.title("Formulasyonları Göster")
-        ayar_pencere.iconbitmap(r"desktop_icon.ico")
-        ayar_pencere.geometry("700x300")
-        hesaplar.ayarpen(ayar_pencere)
+    
+    import hesaplar
+    ayar_pencere = Toplevel()
+    ayar_pencere.title("Formulasyonları Göster")
+    ayar_pencere.iconbitmap(r"desktop_icon.ico")
+    ayar_pencere.geometry("700x300")
+    hesaplar.ayarpen(ayar_pencere)
 
-        ayar_pencere.mainloop()
+    ayar_pencere.mainloop()
 
 def pos_degis():
+    
+    import hesaplar
     pen = Tk()
     pen.title("POS Oranı")
     pen.geometry("230x200")
@@ -1708,6 +1711,7 @@ def pos_degis():
 
 def firma_silme():
     
+    import hesaplar
     pen = Tk()
     pen.title("Firma Silme Penceresi")
     pen.geometry("310x150")
@@ -1717,6 +1721,17 @@ def firma_silme():
 
 def kayit():
     messagebox.showwarning("UYARI!","Programı yeniden başlattıktan sonra kayıtlarınız güncellenecektir.")
+
+def gorsellestir():
+    
+    import gorsel
+    master = Tk()
+    master.geometry("300x400")
+    master.title("Veri Görselleştirme")
+    master.iconbitmap(r"desktop_icon.ico")
+    gorsel.grafik_olustur(master)
+
+    master.mainloop()
 
 firmalar_oku = open("firmalar.csv", "r")
 pencere = Tk()
