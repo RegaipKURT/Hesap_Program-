@@ -1000,68 +1000,44 @@ class giris_pen():
                     if firma == "TÜMÜ":
                         
                         for i in yapilacak_odeme:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "Yapilacak Odeme," + i
-                                sonuc_dosyasi.write(yaz)
-                                gecici_yapilacak_odeme.write(i)
+                            yaz = "Yapilacak Odeme," + i
+                            sonuc_dosyasi.write(yaz)
+                            gecici_yapilacak_odeme.write(i)
                         
                         for i in alinan_odeme:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "Alinan Odeme," + i
-                                sonuc_dosyasi.write(yaz)
-                                gecici_alinan_odeme.write(i)
+                            yaz = "Alinan Odeme," + i
+                            sonuc_dosyasi.write(yaz)
+                            gecici_alinan_odeme.write(i)
                         
                         for i in alinacak_odeme:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "Alinacak Odeme," + i
-                                sonuc_dosyasi.write(yaz)
-                                gecici_alinacak_odeme.write(i)
+                            yaz = "Alinacak Odeme," + i
+                            sonuc_dosyasi.write(yaz)
+                            gecici_alinacak_odeme.write(i)
 
                         for i in kasadan_odeme:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "Kasadan Odeme," + i 
-                                sonuc_dosyasi.write(yaz)
-                                gecici_kasadan_odeme.write(i)
+                            yaz = "Kasadan Odeme," + i 
+                            sonuc_dosyasi.write(yaz)
+                            gecici_kasadan_odeme.write(i)
 
                         for i in kasadisi_odeme:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "Kasa Disi Odeme," + i
-                                sonuc_dosyasi.write(yaz)
-                                gecici_kasadisi_odeme.write(i)
+                            yaz = "Kasa Disi Odeme," + i
+                            sonuc_dosyasi.write(yaz)
+                            gecici_kasadisi_odeme.write(i)
 
                         for i in gider:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "Gider," + i
-                                sonuc_dosyasi.write(yaz)
-                                gecici_gider.write(i)
+                            yaz = "Gider," + i
+                            sonuc_dosyasi.write(yaz)
+                            gecici_gider.write(i)
                         
                         for i in kasadan_alinan:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "Kasadan Alinan," + i
-                                sonuc_dosyasi.write(yaz)
-                                gecici_kasadan_alinan.write(i)
+                            yaz = "Kasadan Alinan," + i
+                            sonuc_dosyasi.write(yaz)
+                            gecici_kasadan_alinan.write(i)
                         
                         for i in pos_gun_sonu:
-                            if i.startswith("tarih"):
-                                pass
-                            else:
-                                yaz = "POS Gun Sonu," + i
-                                sonuc_dosyasi.write(yaz)
-                                gecici_pos_gun_sonu.write(i)
+                            yaz = "POS Gun Sonu," + i
+                            sonuc_dosyasi.write(yaz)
+                            gecici_pos_gun_sonu.write(i)
                         
                         sonuc_dosyasi.close()
                         gecici_kasadan_odeme.close()
@@ -1725,7 +1701,7 @@ def kayit():
 def gorsellestir():
     
     import gorsel
-    master = Tk()
+    master = Toplevel()
     master.geometry("300x400")
     master.title("Veri Görselleştirme")
     master.iconbitmap(r"desktop_icon.ico")
