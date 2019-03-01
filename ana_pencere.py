@@ -1051,7 +1051,7 @@ class giris_pen():
                         #YAZININ ALINMASI VE TARİHE GÖRE ELENMESİ
                     
                         yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
-                        yazimiz[1] = pd.to_datetime(yazimiz[1])
+                        yazimiz[1] = pd.to_datetime(yazimiz[1],dayfirst=True)
                         mask = (yazimiz[1] >= baslangic_tarihi1) & (yazimiz[1] <= bitis_tarihi1)
                         yazimiz = yazimiz.loc[mask]
 
@@ -1065,7 +1065,7 @@ class giris_pen():
                         
                         try:
                             toplamim = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
-                            toplamim[1] = pd.to_datetime(toplamim[1])
+                            toplamim[1] = pd.to_datetime(toplamim[1],dayfirst=True)
                             mask = (toplamim[1] >= baslangic_tarihi1) & (toplamim[1] <= bitis_tarihi1)
                             toplamim = toplamim.loc[mask]
                             toplam_tam = 0
@@ -1083,7 +1083,7 @@ class giris_pen():
                         
                         try:
                             kasadan_odenen = pd.read_csv("hesap_dosyalari/gecici_kasadan_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            kasadan_odenen[0] = pd.to_datetime(kasadan_odenen[0])
+                            kasadan_odenen[0] = pd.to_datetime(kasadan_odenen[0],dayfirst=True)
                             mask = (kasadan_odenen[0] >= baslangic_tarihi1) & (kasadan_odenen[0] <= bitis_tarihi1)
                             kasadan_odenen = kasadan_odenen.loc[mask]
                             toplam_kas_od = 0
@@ -1101,7 +1101,7 @@ class giris_pen():
 
                         try:
                             kasadan_alinan = pd.read_csv("hesap_dosyalari/gecici_kasadan_alinan.csv",header=None,encoding = "ISO-8859-1")
-                            kasadan_alinan[0] = pd.to_datetime(kasadan_alinan[0])
+                            kasadan_alinan[0] = pd.to_datetime(kasadan_alinan[0],dayfirst=True)
                             mask = (kasadan_alinan[0] >= baslangic_tarihi1) & (kasadan_alinan[0] <= bitis_tarihi1)
                             kasadan_alinan = kasadan_alinan.loc[mask]
                             toplam_kas_al = 0
@@ -1119,7 +1119,7 @@ class giris_pen():
 
                         try:
                             kasadisi_odenen = pd.read_csv("hesap_dosyalari/gecici_kasadisi_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            kasadisi_odenen[0] = pd.to_datetime(kasadisi_odenen[0])
+                            kasadisi_odenen[0] = pd.to_datetime(kasadisi_odenen[0],dayfirst=True)
                             mask = (kasadisi_odenen[0] >= baslangic_tarihi1) & (kasadisi_odenen[0] <= bitis_tarihi1)
                             kasadisi_odenen = kasadisi_odenen.loc[mask]
                             toplam_kasadisi_od = 0
@@ -1137,7 +1137,7 @@ class giris_pen():
 
                         try:
                             yapilacak_od = pd.read_csv("hesap_dosyalari/gecici_yapilacak_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            yapilacak_od[0] = pd.to_datetime(yapilacak_od[0])
+                            yapilacak_od[0] = pd.to_datetime(yapilacak_od[0],dayfirst=True)
                             mask = (yapilacak_od[0] >= baslangic_tarihi1) & (yapilacak_od[0] <= bitis_tarihi1)
                             yapilacak_od = yapilacak_od.loc[mask]
                             toplam_yapilacak_od = 0
@@ -1155,7 +1155,7 @@ class giris_pen():
 
                         try:
                             gid = pd.read_csv("hesap_dosyalari/gecici_gider.csv",header=None,encoding = "ISO-8859-1")
-                            gid[0] = pd.to_datetime(gid[0])
+                            gid[0] = pd.to_datetime(gid[0],dayfirst=True)
                             mask = (gid[0] >= baslangic_tarihi1) & (gid[0] <= bitis_tarihi1)
                             gid = gid.loc[mask]
                             toplam_gid = 0
@@ -1173,7 +1173,7 @@ class giris_pen():
                         
                         try:
                             al_od = pd.read_csv("hesap_dosyalari/gecici_odeme_al.csv",header=None,encoding = "ISO-8859-1")
-                            al_od[0] = pd.to_datetime(al_od[0])
+                            al_od[0] = pd.to_datetime(al_od[0],dayfirst=True)
                             mask = (al_od[0] >= baslangic_tarihi1) & (al_od[0] <= bitis_tarihi1)
                             al_od = al_od.loc[mask]
                             toplam_al_od = 0
@@ -1191,7 +1191,7 @@ class giris_pen():
 
                         try:
                             alin_od = pd.read_csv("hesap_dosyalari/gecici_alinacak_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            alin_od[0] = pd.to_datetime(alin_od[0])
+                            alin_od[0] = pd.to_datetime(alin_od[0],dayfirst=True)
                             mask = (alin_od[0] >= baslangic_tarihi1) & (alin_od[0] <= bitis_tarihi1)
                             alin_od = alin_od.loc[mask]
                             toplam_alin_od = 0
@@ -1209,7 +1209,7 @@ class giris_pen():
 
                         try:
                             pos_gun_sonu = pd.read_csv("hesap_dosyalari/gecici_pos_gun_sonu.csv",header=None,encoding = "ISO-8859-1")
-                            pos_gun_sonu[0] = pd.to_datetime(pos_gun_sonu[0])
+                            pos_gun_sonu[0] = pd.to_datetime(pos_gun_sonu[0],dayfirst=True)
                             mask = (pos_gun_sonu[0] >= baslangic_tarihi1) & (pos_gun_sonu[0] <= bitis_tarihi1)
                             pos_gun_sonu = pos_gun_sonu.loc[mask]
                             pos_gun_sonu_toplam = 0
@@ -1465,7 +1465,7 @@ class giris_pen():
                         #BURADA VERİNİN İÇİNDEKİ BİR KOLONDAN TOPLAMLARI ALDIK VE YAZDIRDIK.
                         
                         yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
-                        yazimiz[1] = pd.to_datetime(yazimiz[1])
+                        yazimiz[1] = pd.to_datetime(yazimiz[1],dayfirst=True)
                         mask = (yazimiz[1] >= baslangic_tarihi1) & (yazimiz[1] <= bitis_tarihi1)
                         yazimiz = yazimiz.loc[mask]
 
@@ -1477,7 +1477,7 @@ class giris_pen():
                         
                         try:
                             kasadan_odenen = pd.read_csv("hesap_dosyalari/gecici_kasadan_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            kasadan_odenen[0] = pd.to_datetime(kasadan_odenen[0])
+                            kasadan_odenen[0] = pd.to_datetime(kasadan_odenen[0],dayfirst=True)
                             mask = (kasadan_odenen[0] >= baslangic_tarihi1) & (kasadan_odenen[0] <= bitis_tarihi1)
                             kasadan_odenen = kasadan_odenen.loc[mask]
                             toplam_kas_od = 0
@@ -1495,7 +1495,7 @@ class giris_pen():
 
                         try:
                             kasadan_alinan = pd.read_csv("hesap_dosyalari/gecici_kasadan_alinan.csv",header=None,encoding = "ISO-8859-1")
-                            kasadan_alinan[0] = pd.to_datetime(kasadan_alinan[0])
+                            kasadan_alinan[0] = pd.to_datetime(kasadan_alinan[0],dayfirst=True)
                             mask = (kasadan_alinan[0] >= baslangic_tarihi1) & (kasadan_alinan[0] <= bitis_tarihi1)
                             kasadan_alinan = kasadan_alinan.loc[mask]
                             toplam_kas_al = 0
@@ -1513,7 +1513,7 @@ class giris_pen():
 
                         try:
                             kasadisi_odenen = pd.read_csv("hesap_dosyalari/gecici_kasadisi_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            kasadisi_odenen[0] = pd.to_datetime(kasadisi_odenen[0])
+                            kasadisi_odenen[0] = pd.to_datetime(kasadisi_odenen[0],dayfirst=True)
                             mask = (kasadisi_odenen[0] >= baslangic_tarihi1) & (kasadisi_odenen[0] <= bitis_tarihi1)
                             kasadisi_odenen = kasadisi_odenen.loc[mask]
                             toplam_kasadisi_od = 0
@@ -1542,7 +1542,7 @@ class giris_pen():
                         
                         try:
                             yapilacak_od = pd.read_csv("hesap_dosyalari/gecici_yapilacak_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            yapilacak_od[0] = pd.to_datetime(yapilacak_od[0])
+                            yapilacak_od[0] = pd.to_datetime(yapilacak_od[0],dayfirst=True)
                             mask = (yapilacak_od[0] >= baslangic_tarihi1) & (yapilacak_od[0] <= bitis_tarihi1)
                             yapilacak_od = yapilacak_od.loc[mask]
                             toplam_yapilacak_od = 0
@@ -1560,7 +1560,7 @@ class giris_pen():
 
                         try:
                             gid = pd.read_csv("hesap_dosyalari/gecici_gider.csv",header=None,encoding = "ISO-8859-1")
-                            gid[0] = pd.to_datetime(gid[0])
+                            gid[0] = pd.to_datetime(gid[0],dayfirst=True)
                             mask = (gid[0] >= baslangic_tarihi1) & (gid[0] <= bitis_tarihi1)
                             gid = gid.loc[mask]
                             toplam_gid = 0
@@ -1578,7 +1578,7 @@ class giris_pen():
 
                         try:
                             al_od = pd.read_csv("hesap_dosyalari/gecici_odeme_al.csv",header=None,encoding = "ISO-8859-1")
-                            al_od[0] = pd.to_datetime(al_od[0])
+                            al_od[0] = pd.to_datetime(al_od[0],dayfirst=True)
                             mask = (al_od[0] >= baslangic_tarihi1) & (al_od[0] <= bitis_tarihi1)
                             al_od = al_od.loc[mask]
                             toplam_al_od = 0
@@ -1596,7 +1596,7 @@ class giris_pen():
                         
                         try:
                             alin_od = pd.read_csv("hesap_dosyalari/gecici_alinacak_odeme.csv",header=None,encoding = "ISO-8859-1")
-                            alin_od[0] = pd.to_datetime(alin_od[0])
+                            alin_od[0] = pd.to_datetime(alin_od[0],dayfirst=True)
                             mask = (alin_od[0] >= baslangic_tarihi1) & (alin_od[0] <= bitis_tarihi1)
                             alin_od = alin_od.loc[mask]
                             toplam_alin_od = 0
