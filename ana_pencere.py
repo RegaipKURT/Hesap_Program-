@@ -42,7 +42,7 @@ class giris_pen():
 
         self.ekle_buton = Button(master, text="FİRMA\nEKLE", bd=5, bg="#00bc6c",fg="#071c31",font='Helvetica 12 bold')
         self.ekle_buton.bind("<Button-1>",self.firma_ekle_pen)
-        self.ekle_buton.config(height=5, width=10,)
+        self.ekle_buton.config(height=5, width=10)
         self.ekle_buton.place(x=330, y = 100)
 
         self.hesap_buton = Button(master, text="HESAP\nYAP", bd=5, bg="#00bc6c",fg="#071c31",font='Helvetica 12 bold')
@@ -230,21 +230,28 @@ class giris_pen():
         hesap_ek_pen.mainloop()
         
     def firma_ekle_pen(self, Event):
-        firma_ekle_pencere = Tk()
+        firma_ekle_pencere = Toplevel()
         firma_ekle_pencere.title("Firma Ekle")
-        firma_ekle_pencere.geometry("300x400")
+        firma_ekle_pencere.iconbitmap(r"desktop_icon.ico")
+        firma_ekle_pencere.geometry("512x512")
+        firma_ekle_pencere.resizable(0,0)
         
-        firma_adi_label = Label(firma_ekle_pencere, text="Firma Adı:")
-        firma_adi_label.pack()
+        background_image1=PhotoImage(file="connect.png")
+        background_label1 = Label(firma_ekle_pencere, image=background_image1)
+        background_label1.image = background_image1
+        background_label1.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.firma_adi = Entry(firma_ekle_pencere)
+        firma_adi_label = Label(background_label1, text="Firma Adı:",font="Helvetica 16 bold", bg="#308bab", fg="#e2e3e4")
+        firma_adi_label.place(x=43,y=70)
+        
+        self.firma_adi = Entry(firma_ekle_pencere,font = "Helvetica 16 bold", bg="#4f5963", fg="#e2e3e4")
         self.firma_adi.delete(0,END)
-        self.firma_adi.pack()
+        self.firma_adi.place(x=43,y=110,width=185, height=35)
         self.firma_adi.focus_get()
 
-        ekleme_buton = Button(firma_ekle_pencere, text="Ekle")
+        ekleme_buton = Button(firma_ekle_pencere, text="Ekle",font="Helvetica 16 bold",bg="#308bab",fg="#071c31", bd=3)
         ekleme_buton.bind("<Button-1>", self.firma_ekle_fonk)
-        ekleme_buton.pack(side=BOTTOM)
+        ekleme_buton.place(x=43,y=400,width=185, height=35)
         #firma_ekle_pencere.pack()
 
     def firma_ekle_fonk(self,Event):
@@ -1722,6 +1729,7 @@ background_label = Label(pencere, image=background_image)
 background_label.image = background_image
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 pencere.attributes('-alpha', 0.95)
+pencere.resizable(0,0)
 giris_pen(pencere)
 
 mainloop()
