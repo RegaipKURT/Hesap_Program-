@@ -15,7 +15,7 @@ class giris_pen():
 
     def __init__(self, master):
         menu = Menu(master)
-        pencere.config(menu=menu)
+        pencere.config(menu=menu, bg="#00bc6c")
 
         altmenu = Menu(menu)
         menu.add_cascade(label="File", menu=altmenu)
@@ -32,22 +32,25 @@ class giris_pen():
         menu2.add_command(label="POS Oranı Değiştir", command=pos_degis)
         menu2.add_command(label="Firma Sil", command=firma_silme)
 
-        self.status = Label(master, text="Yükleme Başarılı... Hoşgeldiniz... Tarih:{}".format(tarih), bd=1, relief=SUNKEN, anchor="w")
+        self.status = Label(master, text="Yükleme Başarılı... Hoşgeldiniz...  Tarih:{}".format(tarih), bd=1, relief=SUNKEN, anchor="w",bg="#b1cc00")
         self.status.pack(side=BOTTOM, fill=X)
 
-        self.islem_buton = Button(master, text="İşlem Girişi", bd=3)
+        self.islem_buton = Button(master, text="İŞLEM\nGİRİŞİ", bd=5,bg="#00bc6c",fg="#071c31",font='Helvetica 12 bold')
         self.islem_buton.bind("<Button-1>", self.hesap_penceresi)
-        self.islem_buton.place(x=169, y = 20)
+        self.islem_buton.config( height=5, width=10)
+        self.islem_buton.place(x=80, y = 100)
 
-        self.ekle_buton = Button(master, text="Firma Ekle", bd=3)
+        self.ekle_buton = Button(master, text="FİRMA\nEKLE", bd=5, bg="#00bc6c",fg="#071c31",font='Helvetica 12 bold')
         self.ekle_buton.bind("<Button-1>",self.firma_ekle_pen)
-        self.ekle_buton.place(x=171, y = 70)
+        self.ekle_buton.config(height=5, width=10,)
+        self.ekle_buton.place(x=330, y = 100)
 
-        self.hesap_buton = Button(master, text="Hesap Yap", bd=3)
+        self.hesap_buton = Button(master, text="HESAP\nYAP", bd=5, bg="#00bc6c",fg="#071c31",font='Helvetica 12 bold')
         self.hesap_buton.bind("<Button-1>", self.hesap_fonk_pen)
-        self.hesap_buton.place(x=170, y = 120)
+        self.hesap_buton.config( height=5, width=10)
+        self.hesap_buton.place(x=580, y = 100)
 
-        self.cikis_buton = Button(master, text="Çıkış Yap", bd=3)
+        self.cikis_buton = Button(master, text="Çıkış Yap", bd=5, bg="#00bc6c")
         self.cikis_buton.bind("<Button-1>", self.cikis)
         self.cikis_buton.pack(side=BOTTOM)
         self.firmalar = firmalar_oku.readlines()
@@ -1713,7 +1716,12 @@ firmalar_oku = open("firmalar.csv", "r")
 pencere = Tk()
 pencere.title("Market Programı")
 pencere.iconbitmap(r"desktop_icon.ico")
-pencere.geometry("400x500")
+pencere.geometry("780x350")
+background_image=PhotoImage(file="Wallpaper-1.png")
+background_label = Label(pencere, image=background_image)
+background_label.image = background_image
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+pencere.attributes('-alpha', 0.95)
 giris_pen(pencere)
 
 mainloop()
