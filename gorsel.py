@@ -162,32 +162,32 @@ class grafik_olustur():
                     karsilik_toplam = 0
 
                     mask = (yapilacak_odeme[0] == baslangic_tarihi)
-                    yapilacak_odeme = yapilacak_odeme.loc[mask]
-                    for i in yapilacak_odeme.iloc[:,1:2].values:
+                    yapilacak_odeme2 = yapilacak_odeme.loc[mask]
+                    for i in yapilacak_odeme2.iloc[:,1:2].values:
                         yapilacak_odeme_toplam = yapilacak_odeme_toplam + i
                     mask1 = (kasadan_odeme[0] == baslangic_tarihi)
-                    kasadan_odeme = kasadan_odeme.loc[mask1]
-                    for i in kasadan_odeme.iloc[:,1:2].values:
+                    kasadan_odeme2 = kasadan_odeme.loc[mask1]
+                    for i in kasadan_odeme2.iloc[:,1:2].values:
                         kasadan_odeme_toplam = kasadan_odeme_toplam + i
                     mask2 = (kasadisi_odeme[0] == baslangic_tarihi)
-                    kasadisi_odeme = kasadisi_odeme.loc[mask2]
-                    for i in kasadisi_odeme.iloc[:,1:2].values:
+                    kasadisi_odeme2 = kasadisi_odeme.loc[mask2]
+                    for i in kasadisi_odeme2.iloc[:,1:2].values:
                         kasadisi_odeme_toplam = kasadisi_odeme_toplam + i
                     mask3 = (gider[0] == baslangic_tarihi)
-                    gider = gider.loc[mask3]
-                    for i in gider.iloc[:,1:2].values:
+                    gider2 = gider.loc[mask3]
+                    for i in gider2.iloc[:,1:2].values:
                         gider_toplam = gider_toplam + i
                     mask4 = (kasadan_alinan[0] == baslangic_tarihi)
-                    kasadan_alinan = kasadan_alinan.loc[mask4]
-                    for i in kasadan_alinan.iloc[:,1:2].values:
+                    kasadan_alinan2 = kasadan_alinan.loc[mask4]
+                    for i in kasadan_alinan2.iloc[:,1:2].values:
                         kasadan_alinan_toplam = kasadan_alinan_toplam + i
                     mask5 = (pos_gun_sonu[0] == baslangic_tarihi)
-                    pos_gun_sonu = pos_gun_sonu.loc[mask5]
-                    for i in pos_gun_sonu.iloc[:,1:2].values:
+                    pos_gun_sonu2 = pos_gun_sonu.loc[mask5]
+                    for i in pos_gun_sonu2.iloc[:,1:2].values:
                         pos_gun_sonu_toplam = pos_gun_sonu_toplam + i
                     mask6 = (alinan_odeme[0] == baslangic_tarihi)
-                    alinan_odeme = alinan_odeme.loc[mask6]
-                    for i in alinan_odeme.iloc[:,1:2].values:
+                    alinan_odeme2 = alinan_odeme.loc[mask6]
+                    for i in alinan_odeme2.iloc[:,1:2].values:
                         alinan_odeme_toplam = alinan_odeme_toplam + i
                     
                     toplam_ciro = float(kasadan_alinan_toplam + kasadan_odeme_toplam + pos_gun_sonu_toplam - (pos_gun_sonu_toplam*float(self.pos_oranimiz)) + alinan_odeme_toplam)
@@ -200,22 +200,6 @@ class grafik_olustur():
                     genel_sonuc_dosyasi.write("Kasa Net, " + str(baslangic_tarihi.date())+","+str(kasa_net)+",ETT\n")
                     baslangic_tarihi += datetime.timedelta(days=1)
                     baslangic_tarihi = pd.to_datetime(baslangic_tarihi.date())
-                    
-                    yapilacak_odeme = pd.read_csv("hesap_dosyalari/yapilacak_odeme.csv",header=None,encoding = "ISO-8859-1")
-                    kasadan_odeme = pd.read_csv("hesap_dosyalari/kasadan_odeme.csv",header=None,encoding = "ISO-8859-1")
-                    kasadisi_odeme = pd.read_csv("hesap_dosyalari/kasadisi_odeme.csv",header=None,encoding = "ISO-8859-1")
-                    gider = pd.read_csv("hesap_dosyalari/gider.csv",header=None,encoding = "ISO-8859-1")
-                    kasadan_alinan = pd.read_csv("hesap_dosyalari/kasadan_alinan.csv",header=None,encoding = "ISO-8859-1")
-                    pos_gun_sonu = pd.read_csv("hesap_dosyalari/pos_gun_sonu.csv",header=None,encoding = "ISO-8859-1")
-                    alinan_odeme = pd.read_csv("hesap_dosyalari/odeme_al.csv",header=None,encoding = "ISO-8859-1")
-                    
-                    yapilacak_odeme[0] = pd.to_datetime(yapilacak_odeme[0], errors='coerce',dayfirst=True)
-                    kasadan_odeme[0] = pd.to_datetime(kasadan_odeme[0], errors='coerce',dayfirst=True)
-                    kasadisi_odeme[0] = pd.to_datetime(kasadisi_odeme[0], errors='coerce',dayfirst=True)
-                    gider[0] = pd.to_datetime(gider[0], errors='coerce',dayfirst=True)
-                    kasadan_alinan[0] = pd.to_datetime(kasadan_alinan[0], errors='coerce',dayfirst=True)
-                    pos_gun_sonu[0] = pd.to_datetime(pos_gun_sonu[0], errors='coerce',dayfirst=True)
-                    alinan_odeme[0] = pd.to_datetime(alinan_odeme[0], errors='coerce',dayfirst=True)
 
                     a=a+1
                 

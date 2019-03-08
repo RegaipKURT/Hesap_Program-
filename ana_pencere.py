@@ -72,6 +72,10 @@ class giris_pen():
                 firma = str(listbox.get())
                 tip = str(self.degis_odeme.get())
                 miktar = float(miktar.replace(",","."))
+                if str(self.bas_gun_gir1.get()) == "":
+                    tarih = str(datetime.datetime.now().strftime("%d/%m/%y"))
+                else:
+                    tarih = str(str(self.bas_gun_gir1.get())+"/"+str(self.bas_ay_gir1.get())+"/"+str(self.bas_yil_gir1.get()))
                 if firma not in self.firmalar:
                     messagebox.showwarning("UYARI!","Firma Adı Yanlış Girildi!\nLütfen firma ismini kontrol ediniz!")
                 else:
@@ -222,6 +226,24 @@ class giris_pen():
         listbox.bind('<KeyRelease>', on_keyrelease)
         listbox.place(x=100,y=150)
         #listbox.bind('<Double-Button-1>', on_select)
+        
+        bas_gun_text1 = Label(hesap_ek_pen,text="Gün   /")
+        bas_gun_text1.place(x=140, y=200)
+        bas_ay_text1 = Label(hesap_ek_pen,text="Ay    /")
+        bas_ay_text1.place(x=190,y=200)
+        bas_yil_text1 = Label(hesap_ek_pen,text="Yıl")
+        bas_yil_text1.place(x=240,y=200)
+        tar_lab1 = Label(hesap_ek_pen, text="Tarih Giriniz:", fg="blue")
+        tar_lab1.place(x=20, y=230)
+        self.bas_gun_gir1 = Entry(hesap_ek_pen, width=5)
+        self.bas_gun_gir1.place(x=120, y=230)
+        self.bas_ay_gir1 = Entry(hesap_ek_pen, width=5)
+        self.bas_ay_gir1.place(x=180, y=230)
+        self.bas_yil_gir1 = Entry(hesap_ek_pen, width=5)
+        self.bas_yil_gir1.place(x=230, y=230)
+        tar_lab = Label(hesap_ek_pen, text="Bugün İçin Tarih Girmenize Gerek Yoktur.", fg="red")
+        tar_lab.place(x=20, y=270)
+
         buton = Button(hesap_ek_pen, text="Kaydet",bd=2)
         buton.place(x=10,y=10,relx=0.1,rely=0.2)
         buton.bind("<Button-1>", uyari)
@@ -681,7 +703,7 @@ class giris_pen():
                         veresiye.place(x=140,y=520)
                         veresiye_sonucu.place(x=400,y=520)
 
-                    yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
+                    yazimiz = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None, dayfirst=True,encoding = "ISO-8859-1")
                     
                     def tarih_goreceli(Event):
                         yazi_yerimiz = Text(pencere, height=30, width=80, bg="black", fg="green")
