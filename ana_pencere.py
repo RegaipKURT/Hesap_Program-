@@ -14,6 +14,8 @@ date_now = datetime.datetime.strptime(tarih, "%d/%m/%y")
 class giris_pen():
 
     def __init__(self, master):
+        self.master = master
+        self.master.option_add('*tearOff', False)
         menu = Menu(master)
         pencere.config(menu=menu, bg="#00bc6c")
 
@@ -31,6 +33,10 @@ class giris_pen():
         menu2.add_command(label="Hesaplamaları Göster", command=ayar_goster)
         menu2.add_command(label="POS Oranı Değiştir", command=pos_degis)
         menu2.add_command(label="Firma Sil", command=firma_silme)
+
+        menu3 = Menu(menu)
+        menu.add_cascade(label="Hakkında", menu=menu3)
+        menu3.add_command(label="Lisans Bilgileri", command=lisans)
 
         self.status = Label(master, text="Yükleme Başarılı... Hoşgeldiniz...  Tarih:{}".format(tarih), bd=1, relief=SUNKEN, anchor="w",bg="#b1cc00")
         self.status.pack(side=BOTTOM, fill=X)
@@ -1769,6 +1775,25 @@ def gorsellestir():
     gorsel.grafik_olustur(master)
 
     master.mainloop()
+
+def lisans():
+    def callback(event):
+        import webbrowser
+        webbrowser.open_new(r"https://www.gnu.org/licenses/gpl.txt")
+    lisans_pencere = Toplevel()
+    lisans_pencere.title("Lisans Bilgileri")
+    lisans_pencere.iconbitmap(r"desktop_icon.ico")
+    lisans_pencere.geometry("450x210")
+    yazi = str("\n\nYayıncı: Regaip KURT\n\nBu program GNU Genel Kamu Lisansı v3.0 altında dağıtılmıştır.\n\nTicari amaçlı kullanımlarından yayıncı sorumlu tutulamaz.\n\nLisans Hakkında Detaylı Bilgi İçin Aşağıdaki Linki Ziyaret Edebilirsiniz:")
+    yazi_yeri = Label(lisans_pencere, text=yazi)
+    yazi_yeri.pack()
+    yazi2 = "\nhttps://www.gnu.org/licenses/gpl.txt"
+    yazi_yeri2 = Label(lisans_pencere, text=yazi2, cursor="hand2", fg="blue")
+    yazi_yeri2.pack()
+    yazi_yeri2.bind("<Button-1>", callback)
+    
+
+    lisans_pencere.mainloop()
 
 firmalar_oku = open("firmalar.csv", "r")
 pencere = Tk()
