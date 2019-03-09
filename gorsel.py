@@ -99,7 +99,8 @@ class grafik_olustur():
         yapilacak_odeme = pd.read_csv("hesap_dosyalari/yapilacak_odeme.csv",header=None,encoding = "ISO-8859-1")
         kasadan_odeme = pd.read_csv("hesap_dosyalari/kasadan_odeme.csv",header=None,encoding = "ISO-8859-1")
         kasadisi_odeme = pd.read_csv("hesap_dosyalari/kasadisi_odeme.csv",header=None,encoding = "ISO-8859-1")
-        gider = pd.read_csv("hesap_dosyalari/gider.csv",header=None,encoding = "ISO-8859-1")
+        kasadan_gider = pd.read_csv("hesap_dosyalari/kasadan_gider.csv",header=None,encoding = "ISO-8859-1")
+        kasadisi_gider = pd.read_csv("hesap_dosyalari/kasadisi_gider.csv",header=None,encoding = "ISO-8859-1")
         kasadan_alinan = pd.read_csv("hesap_dosyalari/kasadan_alinan.csv",header=None,encoding = "ISO-8859-1")
         pos_gun_sonu = pd.read_csv("hesap_dosyalari/pos_gun_sonu.csv",header=None,encoding = "ISO-8859-1")
         alinan_odeme = pd.read_csv("hesap_dosyalari/odeme_al.csv",header=None,encoding = "ISO-8859-1")
@@ -109,7 +110,8 @@ class grafik_olustur():
         yapilacak_odeme[0] = pd.to_datetime(yapilacak_odeme[0], errors='coerce',dayfirst=True)
         kasadan_odeme[0] = pd.to_datetime(kasadan_odeme[0], errors='coerce',dayfirst=True)
         kasadisi_odeme[0] = pd.to_datetime(kasadisi_odeme[0], errors='coerce',dayfirst=True)
-        gider[0] = pd.to_datetime(gider[0], errors='coerce',dayfirst=True)
+        kasadan_gider[0] = pd.to_datetime(kasadan_gider[0], errors='coerce',dayfirst=True)
+        kasadisi_gider[0] = pd.to_datetime(kasadisi_gider[0], errors='coerce',dayfirst=True)
         kasadan_alinan[0] = pd.to_datetime(kasadan_alinan[0], errors='coerce',dayfirst=True)
         pos_gun_sonu[0] = pd.to_datetime(pos_gun_sonu[0], errors='coerce',dayfirst=True)
         alinan_odeme[0] = pd.to_datetime(alinan_odeme[0], errors='coerce',dayfirst=True)
@@ -126,6 +128,8 @@ class grafik_olustur():
         yapilacak_odeme_toplam = 0
         kasadan_odeme_toplam = 0
         kasadisi_odeme_toplam = 0
+        kasadan_gider_toplam = 0
+        kasadisi_gider_toplam = 0
         gider_toplam = 0
         kasadan_alinan_toplam = 0
         pos_gun_sonu_toplam = 0
@@ -134,7 +138,7 @@ class grafik_olustur():
         karsilik_toplam = 0
         try:
             bitis_tarihi = datetime.datetime.today()
-            baslangic_tarihi = datetime.datetime.strptime("26/02/19", "%d/%m/%y")
+            baslangic_tarihi = datetime.datetime.strptime("09/03/19", "%d/%m/%y")
             #bitis_tarihi =  datetime.datetime.strptime(str(bitis_tarihim), "%y/%m/%d")
             try:
                 gun_araligi = str(bitis_tarihi-baslangic_tarihi)
@@ -154,6 +158,8 @@ class grafik_olustur():
                     yapilacak_odeme_toplam = 0
                     kasadan_odeme_toplam = 0
                     kasadisi_odeme_toplam = 0
+                    kasadan_gider_toplam = 0
+                    kasadisi_gider_toplam = 0
                     gider_toplam = 0
                     kasadan_alinan_toplam = 0
                     pos_gun_sonu_toplam = 0
@@ -173,10 +179,15 @@ class grafik_olustur():
                     kasadisi_odeme2 = kasadisi_odeme.loc[mask2]
                     for i in kasadisi_odeme2.iloc[:,1:2].values:
                         kasadisi_odeme_toplam = kasadisi_odeme_toplam + i
-                    mask3 = (gider[0] == baslangic_tarihi)
-                    gider2 = gider.loc[mask3]
-                    for i in gider2.iloc[:,1:2].values:
-                        gider_toplam = gider_toplam + i
+                    mask3 = (kasadan_gider[0] == baslangic_tarihi)
+                    kasadan_gider2 = kasadan_gider.loc[mask3]
+                    for i in kasadan_gider2.iloc[:,1:2].values:
+                        kasadan_gider_toplam = kasadan_gider_toplam + i
+                    mask0 = (kasadisi_gider[0] == baslangic_tarihi)
+                    kasadisi_gider2 = kasadisi_gider.loc[mask0]
+                    for i in kasadisi_gider2.iloc[:,1:2].values:
+                        kasadisi_gider_toplam = kasadisi_gider_toplam + i
+                    gider_toplam = kasadan_gider_toplam + kasadisi_gider_toplam
                     mask4 = (kasadan_alinan[0] == baslangic_tarihi)
                     kasadan_alinan2 = kasadan_alinan.loc[mask4]
                     for i in kasadan_alinan2.iloc[:,1:2].values:
@@ -190,7 +201,7 @@ class grafik_olustur():
                     for i in alinan_odeme2.iloc[:,1:2].values:
                         alinan_odeme_toplam = alinan_odeme_toplam + i
                     
-                    toplam_ciro = float(kasadan_alinan_toplam + kasadan_odeme_toplam + pos_gun_sonu_toplam - (pos_gun_sonu_toplam*float(self.pos_oranimiz)) + alinan_odeme_toplam)
+                    toplam_ciro = float(kasadan_alinan_toplam + kasadan_odeme_toplam + pos_gun_sonu_toplam - (pos_gun_sonu_toplam*float(self.pos_oranimiz)) + alinan_odeme_toplam + kasadan_gider_toplam)
                     toplam_odeme = float(kasadan_odeme_toplam + kasadisi_odeme_toplam)
                     kasa_brut = float(toplam_ciro - toplam_odeme)
                     kasa_net = float(kasa_brut - gider_toplam)
@@ -206,7 +217,8 @@ class grafik_olustur():
                 yapilacak_odeme1 = open("hesap_dosyalari/yapilacak_odeme.csv", "r")
                 kasadan_odeme1 = open("hesap_dosyalari/kasadan_odeme.csv", "r")
                 kasadisi_odeme1 = open("hesap_dosyalari/kasadisi_odeme.csv", "r")
-                gider1 = open("hesap_dosyalari/gider.csv", "r")
+                kasadan_gider1 = open("hesap_dosyalari/kasadan_gider.csv", "r")
+                kasadisi_gider1 = open("hesap_dosyalari/kasadisi_gider.csv", "r")
                 kasadan_alinan1 = open("hesap_dosyalari/kasadan_alinan.csv", "r")
                 alinan_odeme1 = open("hesap_dosyalari/odeme_al.csv","r")
                 alinacak_odeme1 = open("hesap_dosyalari/alinacak_odeme.csv","r")
@@ -232,7 +244,10 @@ class grafik_olustur():
                 else:
                     pass
                 if self.c_gid.get()==1:
-                    for i in gider1:
+                    for i in kasadan_gider1:
+                        hepsi = "Gider, " + str(i)
+                        genel_sonuc_dosyasi.write(hepsi)
+                    for i in kasadisi_gider1:
                         hepsi = "Gider, " + str(i)
                         genel_sonuc_dosyasi.write(hepsi)
                 else:
@@ -273,7 +288,8 @@ class grafik_olustur():
                 yapilacak_odeme1.close()
                 kasadan_odeme1.close()
                 kasadisi_odeme1.close()
-                gider1.close()
+                kasadan_gider1.close()
+                kasadisi_gider1.close()
                 kasadan_alinan1.close()
                 alinan_odeme1.close()
                 alinacak_odeme1.close()
@@ -304,7 +320,8 @@ class grafik_olustur():
                 yapilacak_odeme1 = open("hesap_dosyalari/yapilacak_odeme.csv", "r")
                 kasadan_odeme1 = open("hesap_dosyalari/kasadan_odeme.csv", "r")
                 kasadisi_odeme1 = open("hesap_dosyalari/kasadisi_odeme.csv", "r")
-                gider1 = open("hesap_dosyalari/gider.csv", "r")
+                kasadan_gider1 = open("hesap_dosyalari/kasadan_gider.csv", "r")
+                kasadisi_gider1 = open("hesap_dosyalari/kasadisi_gider.csv", "r")
                 kasadan_alinan1 = open("hesap_dosyalari/kasadan_alinan.csv", "r")
                 alinan_odeme1 = open("hesap_dosyalari/odeme_al.csv","r")
                 alinacak_odeme1 = open("hesap_dosyalari/alinacak_odeme.csv","r")
@@ -312,22 +329,12 @@ class grafik_olustur():
                 pos_gun_sonu1 = open("hesap_dosyalari/pos_gun_sonu.csv", "r")
 
                 sonuc_dosyası = open("hesap_dosyalari/gecici_sonuc_dosyasi.csv","w") #ekrana yazdırırken read modunda alıp satırlarını oku!
-                gecici_yapilacak_odeme = open("hesap_dosyalari/gecici_yapilacak_odeme.csv", "w")
-                gecici_kasadan_odeme = open("hesap_dosyalari/gecici_kasadan_odeme.csv", "w")
-                gecici_kasadisi_odeme = open("hesap_dosyalari/gecici_kasadisi_odeme.csv", "w")
-                gecici_gider = open("hesap_dosyalari/gecici_gider.csv", "w")
-                gecici_kasadan_alinan = open("hesap_dosyalari/gecici_kasadan_alinan.csv", "w")
-                gecici_pos_gun_sonu = open("hesap_dosyalari/gecici_pos_gun_sonu.csv", "w")
-                gecici_alinan_odeme = open("hesap_dosyalari/gecici_odeme_al.csv","w")
-                gecici_alinacak_odeme = open("hesap_dosyalari/gecici_alinacak_odeme.csv","w")
-                gecici_kardos = open("hesap_dosyalari/gecici_karsilik_dosyasi.csv","w")
-
+               
                 if self.c_yap_od.get()==1:
                     for i in yapilacak_odeme1:
                         if i.endswith(firma):
                             hepsi = "Yapilacak Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_yapilacak_odeme.write(i)
                 else:
                     pass
                 if self.c_alin_od.get()==1:
@@ -335,7 +342,6 @@ class grafik_olustur():
                         if i.endswith(firma):
                             hepsi = "Alinacak Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_alinacak_odeme.write(i)
                 else:
                     pass
                 if self.c_kas_od.get()==1:
@@ -343,7 +349,6 @@ class grafik_olustur():
                         if i.endswith(firma):
                             hepsi = "Kasadan Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_kasadan_odeme.write(i)
                 else:
                     pass
                 if self.c_kasd_od.get()==1:
@@ -351,15 +356,17 @@ class grafik_olustur():
                         if i.endswith(firma):
                             hepsi = "Kasa Disi Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_kasadisi_odeme.write(i)
                 else:
                     pass
                 if self.c_gid.get()==1:
-                    for i in gider1:
+                    for i in kasadan_gider1:
                         if i.endswith(firma):
                             hepsi = "Gider, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_gider.write(i)
+                    for i in kasadisi_gider1:
+                        if i.endswith(firma):
+                            hepsi = "Gider, " + str(i)
+                            sonuc_dosyası.write(hepsi)
                 else:
                     pass
                 if self.c_kas_al.get()==1:
@@ -367,7 +374,6 @@ class grafik_olustur():
                         if i.endswith(firma):
                             hepsi = "Kasadan Alinan, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_kasadan_alinan.write(i)
                 else:
                     pass
                 if self.c_al_od.get()==1:
@@ -375,7 +381,6 @@ class grafik_olustur():
                         if i.endswith(firma):
                             hepsi = "Alinan Odeme, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_alinan_odeme.write(i)
                 else:
                     pass
                 if self.c_mal_al.get()==1:
@@ -383,7 +388,6 @@ class grafik_olustur():
                         if i.endswith(firma):
                             hepsi = "Mal ve Hizmet Alimi, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_kardos.write(i)
                 else:
                     pass
                 if self.c_pos_gun.get()==1:
@@ -391,19 +395,9 @@ class grafik_olustur():
                         if i.endswith(firma):
                             hepsi = "Pos Gun Sonu, " + str(i)
                             sonuc_dosyası.write(hepsi)
-                            gecici_pos_gun_sonu.write(i)
                 else:
                     pass
                 sonuc_dosyası.close()
-                gecici_kasadan_odeme.close()
-                gecici_kasadan_alinan.close()
-                gecici_gider.close()
-                gecici_kasadisi_odeme.close()
-                gecici_pos_gun_sonu.close()
-                gecici_yapilacak_odeme.close()
-                gecici_alinan_odeme.close()
-                gecici_alinacak_odeme.close()
-                gecici_kardos.close()
                 #BURADA VERİNİN İÇİNDEKİ BİR KOLONDAN TOPLAMLARI ALDIK VE YAZDIRDIK.
 
                 veri = pd.read_csv("hesap_dosyalari/gecici_sonuc_dosyasi.csv",header=None,encoding = "ISO-8859-1")
@@ -420,3 +414,4 @@ class grafik_olustur():
             messagebox.showwarning(title="UYARI!", message="Sonuç Bulunamadı!")
         except pd.errors.EmptyDataError:
             messagebox.showwarning(title="UYARI!", message="Sonuç Bulunamadı!")
+

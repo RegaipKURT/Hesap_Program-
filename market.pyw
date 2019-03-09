@@ -11,7 +11,8 @@ def ilkleme():
     
     def dosyalar_ac():
         firma = open("firmalar.csv", "a")
-        gg=open("hesap_dosyalari/gecici_gider.csv","a")
+        gkg=open("hesap_dosyalari/gecici_kasadan_gider.csv","a")
+        gkdg=open("hesap_dosyalari/gecici_kasadisi_gider.csv","a")
         gka=open("hesap_dosyalari/gecici_kasadan_alinan.csv","a")
         gko=open("hesap_dosyalari/gecici_kasadan_odeme.csv","a")
         gkdo=open("hesap_dosyalari/gecici_kasadisi_odeme.csv","a")
@@ -21,6 +22,8 @@ def ilkleme():
         gol=open("hesap_dosyalari/gecici_odeme_al.csv","a")
         gad=open("hesap_dosyalari/gecici_alinacak_odeme.csv","a")
         gkardos = open("hesap_dosyalari/gecici_karsilik_dosyasi.csv","a")
+        kg=open("hesap_dosyalari/kasadan_gider.csv","a")
+        kdg=open("hesap_dosyalari/kasadisi_gider.csv","a")
         pgs=open("hesap_dosyalari/pos_gun_sonu.csv","a")
         yo=open("hesap_dosyalari/yapilacak_odeme.csv","a")
         ka=open("hesap_dosyalari/kasadan_alinan.csv","a")
@@ -33,7 +36,8 @@ def ilkleme():
         bas_tar = open("hesap_dosyalari/bas_tar.csv","a")
 
         firma.close()
-        gg.close()
+        gkg.close()
+        gkdg.close()
         gka.close()
         gko.close()
         gkdo.close()
@@ -43,6 +47,8 @@ def ilkleme():
         gol.close()
         gad.close()
         gkardos.close()
+        kg.close()
+        kdg.close()
         pgs.close()
         yo.close()
         ka.close()
