@@ -1,4 +1,4 @@
-Author: Regaip KURT
+Author: Regaip KURT.
 This software under the GNU General Public License, version 3 (GPLv3).
 It isn't used for commercial purposes.
 The source code must be made public whenever a distribution of the software is made.
