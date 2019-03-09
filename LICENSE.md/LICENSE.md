@@ -1,5 +1,5 @@
 Author: Regaip KURT.
-This software is under the GNU General Public License, version 3 (GPLv3) and it isn't used for commercial purposes.
+This software is under the GNU General Public License, version 3 (GPLv3) and it can't be used for commercial purposes.
 The source code must be made public whenever a distribution of the software is made.
 Modifications of the software must be released under the same license.
 Changes made to the source code must be documented.
