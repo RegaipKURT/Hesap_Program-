@@ -1207,7 +1207,7 @@ class giris_pen():
                             pass
 
                         try:
-                            kas_gid1 = pd.read_csv("hesap_dosyalari/gecici_kas_gider.csv",header=None,encoding = "ISO-8859-1")
+                            kas_gid1 = pd.read_csv("hesap_dosyalari/gecici_kasadan_gider.csv",header=None,encoding = "ISO-8859-1")
                             kas_gid1[0] = pd.to_datetime(kas_gid1[0],dayfirst=True)
                             mask = (kas_gid1[0] >= baslangic_tarihi1) & (kas_gid1[0] <= bitis_tarihi1)
                             kas_gid1 = kas_gid1.loc[mask]
