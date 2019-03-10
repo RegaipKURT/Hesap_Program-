@@ -822,7 +822,7 @@ class giris_pen():
                             gecici_kasadan_gider.write(i)
                     for i in kasadisi_gider1:
                         if i.endswith(firma):
-                            hepsi = "Kasa Dışı Gider, " + str(i)
+                            hepsi = "Kasa Disi Gider, " + str(i)
                             sonuc_dosyası.write(hepsi)
                             gecici_kasadisi_gider.write(i)
                     for i in kasadan_alinan1:
@@ -1108,7 +1108,7 @@ class giris_pen():
                             gecici_kasadan_gider.write(i)
                         
                         for i in kasadisi_gider:
-                            yaz = "Kasa Dışı Gider," + i
+                            yaz = "Kasa Disi Gider," + i
                             sonuc_dosyasi.write(yaz)
                             gecici_kasadisi_gider.write(i)
                         
@@ -1472,17 +1472,17 @@ class giris_pen():
 
                         for i in yapilacak_odeme1:
                             if i.endswith(firma):
-                                hepsi = "Yapılacak Ödeme, " + str(i)
+                                hepsi = "Yapilacak Ödeme, " + str(i)
                                 sonuc_dosyası.write(hepsi)
                                 gecici_yapilacak_odeme.write(i)
                         for i in alinan_odeme1:
                             if i.endswith(firma):
-                                hepsi = "Alınan Ödeme, " + str(i)
+                                hepsi = "Alinan Ödeme, " + str(i)
                                 sonuc_dosyası.write(hepsi)
                                 gecici_alinan_odeme.write(i)
                         for i in alinacak_odeme1:
                             if i.endswith(firma):
-                                hepsi = "Alınacak Ödeme, " + str(i)
+                                hepsi = "Alinacak Ödeme, " + str(i)
                                 sonuc_dosyası.write(hepsi)
                                 gecici_alinacak_odeme.write(i)
                         for i in kasadan_odeme1:
@@ -1492,7 +1492,7 @@ class giris_pen():
                                 gecici_kasadan_odeme.write(i)
                         for i in kasadisi_odeme1:
                             if i.endswith(firma):
-                                hepsi = "Kasa Dışı Ödeme, " + str(i)
+                                hepsi = "Kasa Disi Ödeme, " + str(i)
                                 sonuc_dosyası.write(hepsi)
                                 gecici_kasadisi_odeme.write(i)
                         for i in kasadan_gider1:
@@ -1502,12 +1502,12 @@ class giris_pen():
                                 gecici_kasadan_gider.write(i)
                         for i in kasadisi_gider1:
                             if i.endswith(firma):
-                                hepsi = "Kasa Dışı Gider, " + str(i)
+                                hepsi = "Kasa Disi Gider, " + str(i)
                                 sonuc_dosyası.write(hepsi)
                                 gecici_kasadisi_gider.write(i)
                         for i in kasadan_alinan1:
                             if i.endswith(firma):
-                                hepsi = "Kasadan Alınan, " + str(i)
+                                hepsi = "Kasadan Alinan, " + str(i)
                                 sonuc_dosyası.write(hepsi)
                                 gecici_kasadan_alinan.write(i)
                         sonuc_dosyası.close()
