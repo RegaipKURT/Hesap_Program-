@@ -188,7 +188,8 @@ class giris_pen():
                 messagebox.showwarning(title="UYARI!", message="Yanlış ya da Eksik Değer Girildi!")
 
         hesap_ek_pen = Toplevel()
-        hesap_ek_pen.title("Hesap Programı")
+        hesap_ek_pen.title("İşlem Girişi")
+        hesap_ek_pen.iconbitmap(r"desktop_icon.ico")
         hesap_ek_pen.geometry("300x400")
         
         odemetip = Label(hesap_ek_pen, text = "Ödeme Tipi Seçiniz...")
@@ -370,6 +371,7 @@ class giris_pen():
         hesap_fon_penceresi = Tk()
         hesap_fon_penceresi.geometry("300x400")
         hesap_fon_penceresi.title("Hesap Penceresi")
+        hesap_fon_penceresi.iconbitmap(r"desktop_icon.ico")
         
         firma_adi = Label(hesap_fon_penceresi, text="Firma Adı:")
         firma_adi.place(x=130,y=20)
@@ -511,8 +513,10 @@ class giris_pen():
 
                 if firma == "TÜMÜ": #tüm firmlar için
                     pencere = Tk()
-                    pencere.title("Göster")
+                    pencere.title("Sonuç Penceresi")
+                    pencere.iconbitmap(r"desktop_icon.ico")
                     pencere.geometry("1200x600")
+                    
                     sonuc_labeli_tepe = Label(pencere,text="SONUCLAR:", bg="gray",fg="white")
                     sonuc_labeli_tepe.pack(fill=X)
                     
@@ -767,8 +771,9 @@ class giris_pen():
                 
                 else: #firma ismine göre
                     pencere = Tk()
-                    pencere.title("Göster")
+                    pencere.title("Sonuç Penceresi")
                     pencere.geometry("670x600")
+                    pencere.iconbitmap(r"desktop_icon.ico")
                     sonuc_labeli_tepe = Label(pencere,text="SONUCLAR:", bg="gray",fg="white")
                     sonuc_labeli_tepe.pack(fill=X)
 
@@ -1140,8 +1145,9 @@ class giris_pen():
                         yazimiz = yazimiz.loc[mask]
 
                         pencere = Tk()
-                        pencere.title("Göster")
+                        pencere.title("Sonuç Penceresi")
                         pencere.geometry("1200x600")
+                        pencere.iconbitmap(r"desktop_icon.ico")
                         label_tepe = Label(pencere,text=str(str(gun_araligi) + " günlük sonuçlar gösteriliyor..."),bg="black",fg="red")
                         label_tepe.pack(fill=X)
 
@@ -1528,8 +1534,9 @@ class giris_pen():
                         yazimiz = yazimiz.loc[mask]
 
                         pencere = Tk()
-                        pencere.title("Göster")
+                        pencere.title("Sonuç Penceresi")
                         pencere.geometry("670x600")
+                        pencere.iconbitmap(r"desktop_icon.ico")
                         label_tepe = Label(pencere,text=str(str(gun_araligi) + " günlük sonuçlar gösteriliyor..."),bg="black",fg="red")
                         label_tepe.pack(fill=X)
                         
@@ -1748,6 +1755,7 @@ def pos_degis():
     pen = Tk()
     pen.title("POS Oranı")
     pen.geometry("230x200")
+    pen.iconbitmap(r"desktop_icon.ico")
     hesaplar.pos_pen(pen)
 
     pen.mainloop()
@@ -1758,6 +1766,7 @@ def firma_silme():
     pen = Tk()
     pen.title("Firma Silme Penceresi")
     pen.geometry("310x150")
+    pen.iconbitmap(r"desktop_icon.ico")
     hesaplar.firma_sil(pen)
 
     pen.mainloop()
