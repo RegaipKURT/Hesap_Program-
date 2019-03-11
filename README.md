@@ -1,2 +1,2 @@
-# Hesap_Program-
-Python ile yazılmış GUİ arayüze sahip hesap programı
+# Hesap Program-
+Python ile yazılmış GUI arayüze sahip hesap programı
