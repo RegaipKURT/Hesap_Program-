@@ -189,7 +189,8 @@ class giris_pen():
 
         hesap_ek_pen = Toplevel()
         hesap_ek_pen.title("İşlem Girişi")
-        hesap_ek_pen.iconbitmap(r"desktop_icon.ico")
+        if ( sys.platform.startswith('win')): 
+            hesap_ek_pen.iconbitmap(r"desktop_icon.ico")
         hesap_ek_pen.geometry("300x400")
         
         odemetip = Label(hesap_ek_pen, text = "Ödeme Tipi Seçiniz...")
@@ -269,7 +270,8 @@ class giris_pen():
     def firma_ekle_pen(self, Event):
         firma_ekle_pencere = Toplevel()
         firma_ekle_pencere.title("Firma Ekle")
-        firma_ekle_pencere.iconbitmap(r"desktop_icon.ico")
+        if ( sys.platform.startswith('win')):     
+            firma_ekle_pencere.iconbitmap(r"desktop_icon.ico")
         firma_ekle_pencere.geometry("512x512")
         firma_ekle_pencere.resizable(0,0)
         
@@ -371,7 +373,8 @@ class giris_pen():
         hesap_fon_penceresi = Tk()
         hesap_fon_penceresi.geometry("300x400")
         hesap_fon_penceresi.title("Hesap Penceresi")
-        hesap_fon_penceresi.iconbitmap(r"desktop_icon.ico")
+        if ( sys.platform.startswith('win')): 
+            hesap_fon_penceresi.iconbitmap(r"desktop_icon.ico")
         
         firma_adi = Label(hesap_fon_penceresi, text="Firma Adı:")
         firma_adi.place(x=130,y=20)
@@ -514,7 +517,8 @@ class giris_pen():
                 if firma == "TÜMÜ": #tüm firmlar için
                     pencere = Tk()
                     pencere.title("Sonuç Penceresi")
-                    pencere.iconbitmap(r"desktop_icon.ico")
+                    if ( sys.platform.startswith('win')): 
+                        pencere.iconbitmap(r"desktop_icon.ico")
                     pencere.geometry("1200x600")
                     
                     sonuc_labeli_tepe = Label(pencere,text="SONUCLAR:", bg="gray",fg="white")
@@ -773,7 +777,8 @@ class giris_pen():
                     pencere = Tk()
                     pencere.title("Sonuç Penceresi")
                     pencere.geometry("670x600")
-                    pencere.iconbitmap(r"desktop_icon.ico")
+                    if ( sys.platform.startswith('win')):                         
+                        pencere.iconbitmap(r"desktop_icon.ico")
                     sonuc_labeli_tepe = Label(pencere,text="SONUCLAR:", bg="gray",fg="white")
                     sonuc_labeli_tepe.pack(fill=X)
 
@@ -1147,7 +1152,8 @@ class giris_pen():
                         pencere = Tk()
                         pencere.title("Sonuç Penceresi")
                         pencere.geometry("1200x600")
-                        pencere.iconbitmap(r"desktop_icon.ico")
+                        if ( sys.platform.startswith('win')):     
+                            pencere.iconbitmap(r"desktop_icon.ico")
                         label_tepe = Label(pencere,text=str(str(gun_araligi) + " günlük sonuçlar gösteriliyor..."),bg="black",fg="red")
                         label_tepe.pack(fill=X)
 
@@ -1536,7 +1542,8 @@ class giris_pen():
                         pencere = Tk()
                         pencere.title("Sonuç Penceresi")
                         pencere.geometry("670x600")
-                        pencere.iconbitmap(r"desktop_icon.ico")
+                        if ( sys.platform.startswith('win')): 
+                            pencere.iconbitmap(r"desktop_icon.ico")
                         label_tepe = Label(pencere,text=str(str(gun_araligi) + " günlük sonuçlar gösteriliyor..."),bg="black",fg="red")
                         label_tepe.pack(fill=X)
                         
@@ -1743,7 +1750,10 @@ def ayar_goster():
     import hesaplar
     ayar_pencere = Toplevel()
     ayar_pencere.title("Formulasyonları Göster")
-    ayar_pencere.iconbitmap(r"desktop_icon.ico")
+    if ( sys.platform.startswith('win')): 
+        ayar_pencere.iconbitmap(r"desktop_icon.ico")
+    else:
+        pass
     ayar_pencere.geometry("700x300")
     hesaplar.ayarpen(ayar_pencere)
 
@@ -1755,7 +1765,8 @@ def pos_degis():
     pen = Tk()
     pen.title("POS Oranı")
     pen.geometry("230x200")
-    pen.iconbitmap(r"desktop_icon.ico")
+    if ( sys.platform.startswith('win')): 
+        pen.iconbitmap(r"desktop_icon.ico")
     hesaplar.pos_pen(pen)
 
     pen.mainloop()
@@ -1780,7 +1791,8 @@ def gorsellestir():
     master = Toplevel()
     master.geometry("300x400")
     master.title("Veri Görselleştirme")
-    master.iconbitmap(r"desktop_icon.ico")
+    if ( sys.platform.startswith('win')): 
+        master.iconbitmap(r"desktop_icon.ico")
     gorsel.grafik_olustur(master)
 
     master.mainloop()
@@ -1791,7 +1803,8 @@ def lisans():
         webbrowser.open_new(r"https://www.gnu.org/licenses/gpl.txt")
     lisans_pencere = Toplevel()
     lisans_pencere.title("Lisans Bilgileri")
-    lisans_pencere.iconbitmap(r"desktop_icon.ico")
+    if ( sys.platform.startswith('win')): 
+        lisans_pencere.iconbitmap(r"desktop_icon.ico")
     lisans_pencere.geometry("450x210")
     yazi = str("\n\nYayıncı: Regaip KURT\n\nBu program GNU Genel Kamu Lisansı v3.0 altında dağıtılmıştır.\n\nTicari amaçlı kullanımlarından yayıncı sorumlu tutulamaz.\n\nLisans Hakkında Detaylı Bilgi İçin Aşağıdaki Linki Ziyaret Edebilirsiniz:")
     yazi_yeri = Label(lisans_pencere, text=yazi)
@@ -1807,7 +1820,7 @@ def lisans():
 firmalar_oku = open("firmalar.csv", "r")
 pencere = Tk()
 pencere.title("Market Programı")
-pencere.iconbitmap(r"desktop_icon.ico")
+#pencere.iconbitmap("window_icon.png")
 pencere.geometry("780x350")
 background_image=PhotoImage(file="Wallpaper-1.png")
 background_label = Label(pencere, image=background_image)

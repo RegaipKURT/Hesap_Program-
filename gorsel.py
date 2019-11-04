@@ -138,7 +138,10 @@ class grafik_olustur():
         karsilik_toplam = 0
         try:
             bitis_tarihi = datetime.datetime.today()
-            baslangic_tarihi = datetime.datetime.strptime("09/03/19", "%d/%m/%y")
+            with open("hesap_dosyalari/bas_tar.csv", "r") as tarih_dos:
+                tarih = tarih_dos.read()[2:10]
+                tarih = tarih.replace("-","/")
+            baslangic_tarihi = datetime.datetime.strptime(str(tarih), "%y/%m/%d")
             #bitis_tarihi =  datetime.datetime.strptime(str(bitis_tarihim), "%y/%m/%d")
             try:
                 gun_araligi = str(bitis_tarihi-baslangic_tarihi)
