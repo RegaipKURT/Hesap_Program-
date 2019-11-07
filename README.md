@@ -6,4 +6,4 @@
 
   Firmalara ve kişilere özel ayrı ayrı hesaplamalar yapabilir. Hesaplamaların nasıl yapıldığı program içinde hesaplamalar bölümünde açıklanmıştır.
   
-  # Ticari Amaçlı Kullanım İçin Değildir. Sadece Örnek ve Eğitim Amaçlı Paylaşılmıştır. Ticari Amaçlı Kullanımlarında Sorumluluk Programı Kullanana Aittir.
+  ### Ticari Amaçlı Kullanım İçin Değildir. Sadece Örnek ve Eğitim Amaçlı Paylaşılmıştır. Ticari Amaçlı Kullanımlarında Sorumluluk Programı Kullanana Aittir.
