@@ -6,4 +6,6 @@
 
   Firmalara ve kişilere özel ayrı ayrı hesaplamalar yapabilir. Hesaplamaların nasıl yapıldığı program içinde hesaplamalar bölümünde açıklanmıştır.
   
+  Görselleştirme arayüzü kütüphanelerinin kurulması için internet bağlantısı gerekmektedir. İnternet bağlantısı olmadan kurulursa görselleştirme özelliği dışındaki diğer özellikler yine sorunsuz şekilde kullanılabilir.
+  
   ### Ticari Amaçlı Kullanım İçin Değildir. Sadece Örnek ve Eğitim Amaçlı Paylaşılmıştır. Ticari Amaçlı Kullanımlarında Sorumluluk Programı Kullanana Aittir.
